@@ -1,3 +1,4 @@
-CLWebApp/obj/
-CLWebApp/bin/
 .vs/
+CLWebApp/CLWebApp/obj/
+CLWebApp/CLWebApp/bin/
+CLWebApp/CLWebApp/CLWebApp.csproj.user
