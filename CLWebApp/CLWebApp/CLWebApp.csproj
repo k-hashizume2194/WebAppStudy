@@ -1,22 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <UserSecretsId>aspnet-CLWebApp-5F2E7F2A-6D4F-47F3-BFE3-24DD3A7EA112</UserSecretsId>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>aspnet-CLWebApp-9D2BAA0C-0407-419D-BA59-5165BE509BC5</UserSecretsId>
   </PropertyGroup>
 
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" PrivateAssets="All" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.2" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
   </ItemGroup>
 
 </Project>
