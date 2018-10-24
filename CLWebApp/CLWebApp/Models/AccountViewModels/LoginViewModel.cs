@@ -8,15 +8,17 @@ namespace CLWebApp.Models.AccountViewModels
 {
     public class LoginViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "メールアドレスは空にできません")]
+        [EmailAddress(ErrorMessage = "メールアドレスの形式が不正です")]
+		[Display(Name ="メールアドレス")]
         public string Email { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+		[Required(ErrorMessage = "パスワードは空にできません")]
+		[DataType(DataType.Password)]
+		[Display(Name = "パスワード")]
+		public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "ログイン状態を保持する")]
         public bool RememberMe { get; set; }
     }
 }
