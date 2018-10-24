@@ -15,5 +15,10 @@ namespace CLWebApp.Controllers
             AverageViewModel model = new AverageViewModel();
             return View(model);
         }
+        [HttpPost]
+        public IActionResult Calc(AverageViewModel model)
+        {
+            return View(model);
+        }
     }
 }
