@@ -15,5 +15,11 @@ namespace CLWebApp.Controllers
             NenpiViewModel model = new NenpiViewModel();
             return View(model);
         }
+
+        [HttpPost]
+        public IActionResult Calc(NenpiViewModel model)
+        {
+            return View(model);
+        }
     }
 }
