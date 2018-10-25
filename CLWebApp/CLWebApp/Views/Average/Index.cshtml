@@ -6,34 +6,60 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<div class="container">
 
-    <div class="jumbotron text-center">
-        <h1>打率計算アプリ</h1>
-    </div>
-
-</div>
-<div class="col-xs-offset-8">
-    <button class="btn">クリア</button>
-</div>
 
 <div class="row">
-    <div class="col-md-4">
-        <form>
-            <div class="form-group">
-                <label for="inp2">打数</label>
-                <input type="text" class="form-control" id="inp2">
+    @*<div class="col-md-4">*@
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form asp-action="Index" method="get">
+        <div class="col-md-offset-5">
+            <button type="submit" class="btn btn-warning">クリア</button>
+        </div>
+    </form>
+    <form asp-action="Calc" method="post">
+
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="bats" class="col-md-2 text-right"></label>
+            <input asp-for="bats" class="form-control col-md-3" />
+            <span asp-validation-for="bats" class="text-danger col-md-7"></span>
+        </div>
+
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="hits" class="col-md-2 text-right"></label>
+            <input asp-for="hits" class="form-control col-md-3" />
+            <span asp-validation-for="hits" class="text-danger col-md-7"></span>
+        </div>
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="Mou" class="col-md-2 text-right"></label>
+            <input asp-for="Mou" class="form-control col-md-10" />
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-success btn-lg col-md-offset-2 col-md-3">計算</button>
             </div>
-            <div class="form-group">
-                <label for="inp2">安打数</label>
-                <input type="text" class="form-control" id="inp2">
-            </div>
-        </form>
+        </div>
+    </form>
+
+    <div class="form-group form-inline col-md-12">
+        <label asp-for="average" class="col-md-2 text-right"></label>
+        <input asp-for="average" class="form-control col-md-10" readonly/>
     </div>
-    <div class="col-md-8"></div>
+
+    <form asp-controller="Home" asp-action="Index">
+        <div class="col-md-offset-5">
+            <button type="submit" class="btn btn-primary">ホームに戻る</button>
+        </div>
+    </form>
+    @*</div>
+        <div class="col-md-8">
+        </div>*@
 </div>
-<label asp-for="vats"></label>
-<input asp-for="vats" class="form-control" />
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+
 
 
 
