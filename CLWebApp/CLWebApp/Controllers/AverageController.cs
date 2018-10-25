@@ -45,45 +45,43 @@ namespace CLWebApp.Controllers
 		/// <param name="model"></param>
 		/// <returns></returns>
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public IActionResult Calc(AverageViewModel model)
 		{
-			string batsVal = model.Bats;
-			string hitsVal = model.Hits;
-
-			// 入力チェック結果を取得(※大小チェック以外は発生しない)
-			string message = service.InputCheck(batsVal, hitsVal);
-
-			if (!string.IsNullOrWhiteSpace(message))
+			if (ModelState.IsValid)
 			{
-				// エラー表示領域にメッセージを設定
-				ModelState.AddModelError(string.Empty, message);
+				string batsVal = model.Bats;
+				string hitsVal = model.Hits;
 
-				// ここまででエラーがあれば画面にメッセージを表示して処理中断
-				if (!ModelState.IsValid)
+				// 入力チェック結果を取得(※大小チェック以外は発生しない)
+				string message = service.InputCheck(batsVal, hitsVal);
+
+				if (!string.IsNullOrWhiteSpace(message))
 				{
+					// エラー表示領域にメッセージを設定
+					ModelState.AddModelError(string.Empty, message);
 					// 画面を再表示
 					return View("Index", model);
 				}
+
+				// 打数がゼロの場合、"-" を表示
+				if ("0".Equals(batsVal))
+				{
+					model.Average = "-";
+				}
+				else
+				{
+					// 打数,安打数を数値変換 ※入力値チェックが完了しているので数値変換時のエラーの心配なし
+					double batsDoubleVal = double.Parse(batsVal);
+					double hitsDoubleVal = double.Parse(hitsVal);
+
+					double averageVal = service.CalcAverage(batsDoubleVal, hitsDoubleVal);
+
+					// 打率表示整形メソッドの結果をstring型に代入
+					string aveCharacterString = service.AveFormat(averageVal);
+					model.Average = aveCharacterString;
+				}
 			}
-
-			// 打数がゼロの場合、"-" を表示
-			if ("0".Equals(batsVal))
-			{
-				model.Average = "-";
-			}
-			else
-			{
-				// 打数,安打数を数値変換 ※入力値チェックが完了しているので数値変換時のエラーの心配なし
-				double batsDoubleVal = double.Parse(batsVal);
-				double hitsDoubleVal = double.Parse(hitsVal);
-
-				double averageVal = service.CalcAverage(batsDoubleVal, hitsDoubleVal);
-
-				// 打率表示整形メソッドの結果をstring型に代入
-				string aveCharacterString = service.AveFormat(averageVal);
-				model.Average = aveCharacterString;
-			}
-
 			// 画面を再表示
 			return View("Index", model);
 		}

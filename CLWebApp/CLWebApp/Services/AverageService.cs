@@ -12,8 +12,10 @@ namespace CLWebApp.Services
 	public class AverageService
 	{
 		/// <summary>
-		/// クリアメソッド
+		/// クリア処理
 		/// </summary>
+		/// <param name="model">打率計算画面ViewModel</param>
+		/// <returns>初期化された打率計算画面ViewModel</returns>
 		public AverageViewModel Clear(AverageViewModel model)
 		{
 			model.Bats = "0";
