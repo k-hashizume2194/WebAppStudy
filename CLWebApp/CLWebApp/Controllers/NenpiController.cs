@@ -11,8 +11,18 @@ namespace CLWebApp.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["Title"] = "燃費計算アプリ";
             NenpiViewModel model = new NenpiViewModel();
+
+            model.boxOilingQuantity = "123";
+
+            Console.WriteLine("(before)model.boxOilingQuantity：" + model.boxOilingQuantity);
+
+            // 画面初期化
+            Clear(model);
+
+
+            Console.WriteLine("(after)model.boxOilingQuantity：" + model.boxOilingQuantity);
+
             return View(model);
         }
 
@@ -74,14 +84,15 @@ namespace CLWebApp.Controllers
             //txtCurrentMileage.Enabled = false;
             //btnCalculation.Enabled = false;
 
-            return View(model);
+            return View("Index",model);
         }
         #region privateメソッド
 
         /// <summary>
         /// 入力値クリアメソッド
         /// </summary>
-        private void Clear()
+        /// <param name="model">燃費計算画面ViewModel</param>
+        private void Clear(NenpiViewModel model)
         {
             //給油日: 現在日付
             //給油量:空白
@@ -90,11 +101,11 @@ namespace CLWebApp.Controllers
             //区間走行距離:空白
             //区間燃費:空白
             //計算ボタン:クリック不可状態
-            //dateTimePicker.Value = DateTime.Now;
-            //boxOilingQuantity.Text = "";
-            //txtCurrentMileage.Text = "";
-            //txtThisMileage.Text = "";
-            //txtFuelConsumption.Text = "";
+            model.dataTimePicker = DateTime.Now.ToString();
+            model.boxOilingQuantity = "";
+            model.currentMileage = "";
+            model.thisMileage = "";
+            model.fuelConsumption = "";
             //btnCalculation.Enabled = false;
             ////計算時に変更不可にした給油日、給油量、給油時走行距離を入力可に戻す
             //dateTimePicker.Enabled = true;
@@ -102,17 +113,17 @@ namespace CLWebApp.Controllers
             //txtCurrentMileage.Enabled = true;
 
             ////前回給油時総走行距離取得メソッドを実行
-            //double zenkai = GetzenkaiFromdb();
+            double zenkai = GetzenkaiFromdb();
 
             //// 前回給油時走行距離が"0"の場合、前回給油時走行距離に"0.0"を表示
-            //if (zenkai == 0)
-            //{
-            //    txtPastMileage.Text = "0.0";
-            //}
-            //else
-            //{
-            //    txtPastMileage.Text = zenkai.ToString();
-            //}
+            if (zenkai == 0)
+            {
+                model.pastMileage = "0.0";
+            }
+            else
+            {
+                model.pastMileage = zenkai.ToString();
+            }
         }
 
         /// <summary>

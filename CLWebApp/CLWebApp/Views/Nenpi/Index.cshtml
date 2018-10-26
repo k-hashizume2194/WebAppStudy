@@ -1,7 +1,7 @@
 ﻿@using CLWebApp.Models.ViewModels
 @model NenpiViewModel
 @{
-    //ViewData["Title"] = "Index";
+    ViewData["Title"] = "燃費計算アプリ";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -15,24 +15,25 @@
                 <button type="submit" class="btn btn-warning">クリア</button>
             </div>
         </form>
-        <form asp-action="Culc" method="post">
+        <form asp-action="Calc" method="post">
             <div class="form-group form-inline col-md-12">
                 <label asp-for="dataTimePicker" class="col-md-2 text-right"></label>
                 <input asp-for="dataTimePicker" class="form-control col-md-3" />
                 <span asp-validation-for="dataTimePicker" class="text-danger col-md-7"></span>
             </div>
-            <div class="form-group form-inline col-md-12">
+            <div class="form-group form-inline col-md-12" >
                     <label asp-for="boxOilingQuantity" class="col-md-2 text-right"></label>
-                    <input asp-for="boxOilingQuantity" class="form-control col-md-3" />
+                    <input asp-for="boxOilingQuantity" class="form-control col-md-3" maxlength="5"/>
                     <span asp-validation-for="boxOilingQuantity" class="text-danger col-md-7"></span>
              </div>
             <div class="form-group form-inline col-md-12">
                 <label asp-for="pastMileage" class="col-md-2 text-right"></label>
-                <input asp-for="pastMileage" class="form-control col-md-3" readonly/>
+                <input asp-for="pastMileage" class="form-control col-md-3" readonly />
             </div>
             <div class="form-group form-inline col-md-12">
                 <label asp-for="currentMileage" class="col-md-2 text-right"></label>
-                <input asp-for="currentMileage" class="form-control col-md-3" />
+                <input asp-for="currentMileage" class="form-control col-md-3" maxlength="9"/>
+                <span asp-validation-for="currentMileage" class="text-danger col-md-7"></span>
             </div>
             <div class="form-group form-inline col-md-12">
                 <label asp-for="thisMileage" class="col-md-2 text-right"></label>
@@ -47,7 +48,7 @@
         <form asp-action="btnRecord" method="post">
             <div class="form-group form-inline col-md-12">
                 <label asp-for="fuelConsumption" class="col-md-2 text-right"></label>
-                <input asp-for="fuelConsumption" class="form-control col-md-3" readonly/ >
+                <input asp-for="fuelConsumption" class="form-control col-md-3" readonly / >
                 <span asp-validation-for="fuelConsumption" class="text-danger col-md-7"></span>
             </div>
             <div class="form-group">
