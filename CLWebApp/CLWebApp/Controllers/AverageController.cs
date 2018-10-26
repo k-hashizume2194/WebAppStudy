@@ -65,9 +65,9 @@ namespace CLWebApp.Controllers
         /// <param name="model">打率計算画面ViewModel</param>
         private void Clear(AverageViewModel model)
         {
-            model.bats = "0";
-            model.hits = "0";
-            model.average = "";
+            model.batsText = "0";
+            model.hitsText = "0";
+            model.averageText = "";
             model.Mou = false;
         }
 

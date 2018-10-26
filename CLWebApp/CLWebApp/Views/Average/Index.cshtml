@@ -19,15 +19,15 @@
     <form asp-action="Calc" method="post">
 
         <div class="form-group form-inline col-md-12">
-            <label asp-for="bats" class="col-md-2 text-right"></label>
-            <input asp-for="bats" class="form-control col-md-3" maxlength="6"/>
-            <span asp-validation-for="bats" class="text-danger col-md-7"></span>
+            <label asp-for="batsText" class="col-md-2 text-right"></label>
+            <input asp-for="batsText" class="form-control col-md-3" maxlength="6" style="ime-mode: disabled" />
+            <span asp-validation-for="batsText" class="text-danger col-md-7"></span>
         </div>
 
         <div class="form-group form-inline col-md-12">
-            <label asp-for="hits" class="col-md-2 text-right"></label>
-            <input asp-for="hits" class="form-control col-md-3" maxlength="6"/>
-            <span asp-validation-for="hits" class="text-danger col-md-7"></span>
+            <label asp-for="hitsText" class="col-md-2 text-right"></label>
+            <input asp-for="hitsText" class="form-control col-md-3" maxlength="6" style="ime-mode: disabled" />
+            <span asp-validation-for="hitsText" class="text-danger col-md-7"></span>
         </div>
         <div class="form-group form-inline col-md-12">
             <label asp-for="Mou" class="col-md-2 text-right"></label>
@@ -41,8 +41,8 @@
     </form>
 
     <div class="form-group form-inline col-md-12">
-        <label asp-for="average" class="col-md-2 text-right"></label>
-        <input asp-for="average" class="form-control col-md-10" readonly/>
+        <label asp-for="averageText" class="col-md-2 text-right"></label>
+        <input asp-for="averageText" class="form-control col-md-10" readonly/>
     </div>
 
     <form asp-controller="Home" asp-action="Index">
