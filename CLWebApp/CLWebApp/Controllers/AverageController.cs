@@ -13,6 +13,8 @@ namespace CLWebApp.Controllers
         {
             ViewData["Title"] = "打率計算アプリ";
             AverageViewModel model = new AverageViewModel();
+            // 画面初期化
+            Clear(model);
             return View(model);
         }
 
@@ -61,13 +63,13 @@ namespace CLWebApp.Controllers
         /// <summary>
         /// クリアメソッド
         /// </summary>
-        private void Clear()
+        /// <param name="model">打率計算画面ViewModel</param>
+        private void Clear(AverageViewModel model)
         {
-            //batsText.Text = "0";
-            //hitsText.Text = "0";
-            //averageText.Text = "";
-            //averageText.ReadOnly = true;
-            //checkBoxMou.Checked = false;
+            model.bats = "0";
+            model.hits = "0";
+            model.average = "";
+            model.Mou = false;
         }
 
         /// <summary>
