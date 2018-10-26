@@ -20,7 +20,7 @@ namespace CLWebApp.Controllers
         private AverageService _servise;
 
         /// <summary>
-        /// コンストラクタ
+        /// コンストラクター
         /// </summary>
         public AverageController()
         {
