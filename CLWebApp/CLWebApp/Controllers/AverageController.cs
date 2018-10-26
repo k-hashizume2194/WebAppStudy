@@ -11,7 +11,6 @@ namespace CLWebApp.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["Title"] = "打率計算アプリ";
             AverageViewModel model = new AverageViewModel();
             // 画面初期化
             Clear(model);
@@ -56,7 +55,7 @@ namespace CLWebApp.Controllers
             //    // 打率表示テキストボックスのテキストに代入
             //    averageText.Text = aveCharacterString;
             //}
-            return View(model);
+            return View("Index",model);
         }
         #region privateメソッド
 
