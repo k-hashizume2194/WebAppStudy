@@ -2,6 +2,9 @@
 @model NenpiViewModel
 @{
     ViewData["Title"] = "燃費計算アプリ";
+
+    // 計算ボタンクリック状態
+    string btnCalculationState = Model.btnCalculationEnabled ? "" : "disabled";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -41,7 +44,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-success btn-lg col-md-offset-2 col-md-3">計算</button>
+                    <button type="submit" class="btn btn-success btn-lg col-md-offset-2 col-md-3" @btnCalculationState >計算</button>
                 </div>
             </div>
         </form>

@@ -52,5 +52,11 @@ namespace CLWebApp.Models.ViewModels
         //[Required(ErrorMessage = "記録処理は区間燃費の算出後に実行してください")]
         [Display(Name = "区間燃費：")]
         public string fuelConsumption { get; set; }
+
+
+        /// <summary>
+        /// 計算ボタンクリック状態管理
+        /// </summary>
+        public bool btnCalculationEnabled { get; set; }
     }
 }
