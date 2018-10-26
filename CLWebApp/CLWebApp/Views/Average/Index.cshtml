@@ -7,7 +7,6 @@
 <h2>@ViewData["Title"]</h2>
 
 
-
 <div class="row">
     @*<div class="col-md-4">*@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -19,15 +18,15 @@
     <form asp-action="Calc" method="post">
 
         <div class="form-group form-inline col-md-12">
-            <label asp-for="batsText" class="col-md-2 text-right"></label>
-            <input asp-for="batsText" class="form-control col-md-3" maxlength="6" style="ime-mode: disabled" />
-            <span asp-validation-for="batsText" class="text-danger col-md-7"></span>
+            <label asp-for="Bats" class="col-md-2 text-right"></label>
+            <input asp-for="Bats" class="form-control col-md-3" maxlength="6" style="ime-mode: disabled" />
+            <span asp-validation-for="Bats" class="text-danger col-md-7"></span>
         </div>
 
         <div class="form-group form-inline col-md-12">
-            <label asp-for="hitsText" class="col-md-2 text-right"></label>
-            <input asp-for="hitsText" class="form-control col-md-3" maxlength="6" style="ime-mode: disabled" />
-            <span asp-validation-for="hitsText" class="text-danger col-md-7"></span>
+            <label asp-for="Hits" class="col-md-2 text-right"></label>
+            <input asp-for="Hits" class="form-control col-md-3" maxlength="6" style="ime-mode: disabled" />
+            <span asp-validation-for="Hits" class="text-danger col-md-7"></span>
         </div>
         <div class="form-group form-inline col-md-12">
             <label asp-for="Mou" class="col-md-2 text-right"></label>
@@ -41,8 +40,8 @@
     </form>
 
     <div class="form-group form-inline col-md-12">
-        <label asp-for="averageText" class="col-md-2 text-right"></label>
-        <input asp-for="averageText" class="form-control col-md-10" readonly/>
+        <label asp-for="Average" class="col-md-2 text-right"></label>
+        <input asp-for="Average" class="form-control col-md-10" readonly/>
     </div>
 
     <form asp-controller="Home" asp-action="Index">

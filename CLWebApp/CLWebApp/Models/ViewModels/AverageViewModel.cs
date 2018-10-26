@@ -18,7 +18,7 @@ namespace CLWebApp.Models.ViewModels
         [Required(ErrorMessage = "打数を入力してください")]
         [RegularExpression(@"[0-9]+", ErrorMessage = "打数は正の整数を入力してください")]
         [Display(Name = "打数：")]
-        public string batsText { get; set; }
+        public string Bats { get; set; }
 
         /// <summary>
         /// 安打数
@@ -26,7 +26,7 @@ namespace CLWebApp.Models.ViewModels
         [Required(ErrorMessage = "安打数を入力してください")]
         [RegularExpression(@"[0-9]+", ErrorMessage = "安打数は正の整数を入力してください")]
         [Display(Name = "安打数：")]
-        public string hitsText { get; set; }
+        public string Hits { get; set; }
 
         /// <summary>
         /// 毛まで算出
@@ -38,6 +38,6 @@ namespace CLWebApp.Models.ViewModels
         /// 打率
         /// </summary>
         [Display(Name = "打率：")]
-        public string averageText { get; set; }
+        public string Average { get; set; }
     }
 }
