@@ -1,4 +1,5 @@
-﻿using CLWebApp.Models.ViewModels;
+﻿using CLWebApp.Data;
+using CLWebApp.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace CLWebApp.Services
         /// 入力値クリアメソッド
         /// </summary>
         /// <param name="model">燃費計算画面ViewModel</param>
-        public void Clear(NenpiViewModel model)
+        public void Clear(NenpiViewModel model, ApplicationDbContext _context)
         {
             //給油日: 現在日付
             //給油量:空白
@@ -37,7 +38,7 @@ namespace CLWebApp.Services
             //txtCurrentMileage.Enabled = true;
 
             ////前回給油時総走行距離取得メソッドを実行
-            double zenkai = GetzenkaiFromdb();
+            double zenkai = GetzenkaiFromdb(_context);
 
             //// 前回給油時走行距離が"0"の場合、前回給油時走行距離に"0.0"を表示
             if (zenkai == 0)
@@ -53,11 +54,19 @@ namespace CLWebApp.Services
         /// <summary>
         /// 前回走行距離取得メソッド
         /// </summary>
+        /// <param name="_context">DBコンテキスト</param>
         /// <returns>DBから取得した前回走行距離</returns>
-        public double GetzenkaiFromdb()
+        public double GetzenkaiFromdb(ApplicationDbContext _context)
         {
             // 前回給油時走行距離変数
-            string pastMileageStr = "0"; // TODO:スタブなのでゼロ固定
+            double latestMileage = 0;
+
+            // 最新の燃費記録
+            var recentNenpiRecord = _context.NenpiRecords.OrderByDescending(x => x.RefuelDate).FirstOrDefault();
+            if (recentNenpiRecord != null)
+            {
+                latestMileage = recentNenpiRecord.Mileage;
+            }
 
             //using (SQLiteConnection nenpiData = new SQLiteConnection("Data Source=" + db_file))
             //{
@@ -90,8 +99,8 @@ namespace CLWebApp.Services
             //        }
             //    }
             //}
-            //前回給油時走行距離テキストをdouble型に変換
-            double latestMileage = double.Parse(pastMileageStr);
+            ////前回給油時走行距離テキストをdouble型に変換
+            //double latestMileage = double.Parse(pastMileageStr);
 
             //呼び出し元に戻り値として返す
             return latestMileage;
