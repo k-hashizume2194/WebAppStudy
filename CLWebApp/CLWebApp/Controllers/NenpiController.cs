@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CLWebApp.Data;
 using CLWebApp.Models.ViewModels;
 using CLWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -17,10 +18,12 @@ namespace CLWebApp.Controllers
     public class NenpiController : Controller
     {
         private nenpiService _service;
+        private readonly ApplicationDbContext _context;
 
-        public NenpiController()
+        public NenpiController(ApplicationDbContext context)
         {
             _service = new nenpiService();
+            _context = context;
         }
 
         public IActionResult Index()
@@ -72,11 +75,11 @@ namespace CLWebApp.Controllers
         [HttpPost]
         public IActionResult Calc(NenpiViewModel model)
         {
+            string oiling = model.boxOilingQuantity;
+            string mileageVal = model.thisMileage;
+
             if (ModelState.IsValid)
             {
-                string oiling = model.boxOilingQuantity;
-                string mileageVal = model.thisMileage;
-
                 /////1.給油量の入力チェックを行う
                 //// 入力チェック結果を取得
                 string message = _service.CheckOilingQuantity(oiling);
@@ -93,14 +96,14 @@ namespace CLWebApp.Controllers
             }
             else
             {
-                /////2-1.燃費計算
-                /////区間燃費 ＝ 区間距離 / 給油量
-                //double oilingdouble = double.Parse(oiling);
-                //double valThisMileage = double.Parse(mileageVal);
-                //double nenpi = Culcnenpi(oilingdouble, valThisMileage);
+                ///2-1.燃費計算
+                ///区間燃費 ＝ 区間距離 / 給油量
+                double oilingdouble = double.Parse(oiling);
+                double valThisMileage = double.Parse(mileageVal);
+                double nenpi = _service.Calcnenpi(oilingdouble, valThisMileage);
 
                 //// 3.燃費計算結果をテキストボックスにセット
-                //txtFuelConsumption.Text = nenpi.ToString("#0.0");
+                model.fuelConsumption = nenpi.ToString("#0.0");
 
                 /////4.「クリア」「記録」「終了」ボタン以外の入力部品を変更不可状態にする。
                 //dateTimePicker.Enabled = false;

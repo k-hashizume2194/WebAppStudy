@@ -103,7 +103,7 @@ namespace CLWebApp.Services
         /// <param name="oilingdouble">給油量</param>
         /// <param name="valThisMileage">区間距離</param>
         /// <returns>区間燃費</returns>
-        public double Culcnenpi(double oilingdouble, double valThisMileage)
+        public double Calcnenpi(double oilingdouble, double valThisMileage)
         {
             ///燃費計算メソッド
             ///引数１：給油量 (double)
