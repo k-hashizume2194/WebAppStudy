@@ -18,7 +18,7 @@
                 <button type="submit" class="btn btn-warning">クリア</button>
             </div>
         </form>
-        <form asp-action="Calc" method="post">
+        <form asp-action="Calc" id="calcForm" method="post">
             <div class="form-group form-inline col-md-12">
                 <label asp-for="dataTimePicker" class="col-md-2 text-right"></label>
                 <input asp-for="dataTimePicker" class="form-control col-md-3" />
@@ -44,7 +44,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-success btn-lg col-md-offset-2 col-md-3" @btnCalculationState >計算</button>
+                    <button type="submit" id="btnCalculation" class="btn btn-success btn-lg col-md-offset-2 col-md-3" @btnCalculationState >計算</button>
                 </div>
             </div>
         </form>

@@ -91,24 +91,25 @@ namespace CLWebApp.Controllers
                     //ActiveControl = model.boxOilingQuantity;
                     //    return;
                 }
-            }
-            else
-            {
-                ///2-1.燃費計算
-                ///区間燃費 ＝ 区間距離 / 給油量
-                double oilingdouble = double.Parse(oiling);
-                double valThisMileage = double.Parse(mileageVal);
-                double nenpi = _service.Calcnenpi(oilingdouble, valThisMileage);
+                else
+                {
+                    ///2-1.燃費計算
+                    ///区間燃費 ＝ 区間距離 / 給油量
+                    double oilingdouble = double.Parse(oiling);
+                    double valThisMileage = double.Parse(mileageVal);
+                    double nenpi = _service.Calcnenpi(oilingdouble, valThisMileage);
 
-                //// 3.燃費計算結果をテキストボックスにセット
-                model.fuelConsumption = nenpi.ToString("#0.0");
+                    //// 3.燃費計算結果をテキストボックスにセット
+                    model.fuelConsumption = nenpi.ToString("#0.0");
 
-                /////4.「クリア」「記録」「終了」ボタン以外の入力部品を変更不可状態にする。
-                //dateTimePicker.Enabled = false;
-                //boxOilingQuantity.Enabled = false;
-                //txtCurrentMileage.Enabled = false;
-                //btnCalculation.Enabled = false;
+                    /////4.「クリア」「記録」「終了」ボタン以外の入力部品を変更不可状態にする。
+                    //dateTimePicker.Enabled = false;
+                    //boxOilingQuantity.Enabled = false;
+                    //txtCurrentMileage.Enabled = false;
+                    //btnCalculation.Enabled = false;
+                }
             }
+
             return View("Index", model);
         }
 
