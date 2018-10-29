@@ -4,7 +4,7 @@
     ViewData["Title"] = "燃費計算アプリ";
 
     // 計算ボタンクリック状態
-    string btnCalculationState = Model.btnCalculationEnabled ? "" : "disabled";
+    //string btnCalculationState = Model.btnCalculationEnabled ? "" : "disabled";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -19,6 +19,7 @@
             </div>
         </form>
         <form asp-action="Calc" method="post">
+            <input type="hidden" asp-for="btnCalculationEnabled"/>
             <div class="form-group form-inline col-md-12">
                 <label asp-for="dataTimePicker" class="col-md-2 text-right"></label>
                 <input asp-for="dataTimePicker" class="form-control col-md-3" />
@@ -44,7 +45,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-success btn-lg col-md-offset-2 col-md-3" @btnCalculationState >計算</button>
+                    <button type="submit" class="btn btn-success btn-lg col-md-offset-2 col-md-3" id="calcBtn" >計算</button>
                 </div>
             </div>
         </form>
