@@ -76,7 +76,7 @@ $(function () {
     });
 });
 
-//ボタンの押印を制御する関数
+//計算ボタンの押印を制御する関数
 function btnCalcChange() {
     // ①btnCalculationEnabledの値をとる
     var hiddenVal = $('#btnCalculationEnabled').val();
@@ -85,4 +85,10 @@ function btnCalcChange() {
 
     // ②ボタンのdisabledを①の値をもとに切り替え]
     $('#calcBtn').prop('disabled', !btnCalculationEnabledval);
+}
+
+//計算後、押印や入力の不可をを制御する関数
+function calclatedChange() {
+    // ①isCalclatedの値をとる
+    // ②①の値をもとに「クリア」「記録」「終了」ボタン以外の入力部品を変更不可状態にする
 }

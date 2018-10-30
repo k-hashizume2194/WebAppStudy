@@ -19,24 +19,25 @@
             </div>
         </form>
         <form asp-action="Calc" method="post">
-            <input type="hidden" asp-for="btnCalculationEnabled"/>
+            <input type="hidden" asp-for="btnCalculationEnabled" />
+            <input type="hidden" asp-for="isCalclated" />
             <div class="form-group form-inline col-md-12">
                 <label asp-for="dataTimePicker" class="col-md-2 text-right"></label>
                 <input asp-for="dataTimePicker" class="form-control col-md-3" />
                 <span asp-validation-for="dataTimePicker" class="text-danger col-md-7"></span>
             </div>
-            <div class="form-group form-inline col-md-12" >
-                    <label asp-for="boxOilingQuantity" class="col-md-2 text-right"></label>
-                    <input asp-for="boxOilingQuantity" class="form-control col-md-3" maxlength="5" style="ime-mode: disabled"/>
-                    <span asp-validation-for="boxOilingQuantity" class="text-danger col-md-7"></span>
-             </div>
+            <div class="form-group form-inline col-md-12">
+                <label asp-for="boxOilingQuantity" class="col-md-2 text-right"></label>
+                <input asp-for="boxOilingQuantity" class="form-control col-md-3" maxlength="5" style="ime-mode: disabled" />
+                <span asp-validation-for="boxOilingQuantity" class="text-danger col-md-7"></span>
+            </div>
             <div class="form-group form-inline col-md-12">
                 <label asp-for="pastMileage" class="col-md-2 text-right"></label>
                 <input asp-for="pastMileage" class="form-control col-md-3" readonly id="pastMileage" />
             </div>
             <div class="form-group form-inline col-md-12">
                 <label asp-for="currentMileage" class="col-md-2 text-right"></label>
-                <input asp-for="currentMileage" class="form-control col-md-3" maxlength="9" style="ime-mode: disabled" id="currentMileage"/>
+                <input asp-for="currentMileage" class="form-control col-md-3" maxlength="9" style="ime-mode: disabled" id="currentMileage" />
                 <span asp-validation-for="currentMileage" class="text-danger col-md-7"></span>
             </div>
             <div class="form-group form-inline col-md-12">
@@ -45,7 +46,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-success btn-lg col-md-offset-2 col-md-3" id="calcBtn" >計算</button>
+                    <button type="submit" class="btn btn-success btn-lg col-md-offset-2 col-md-3" id="calcBtn">計算</button>
                 </div>
             </div>
         </form>
