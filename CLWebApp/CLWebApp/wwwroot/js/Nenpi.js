@@ -44,19 +44,23 @@ $(function () {
     //    return;
     //}
 
-    ////区間距離を算出して「区間距離」テキストボックスに設定
-    //double kyuyuzidouble = double.Parse(kyuyuzitMileage);
-    //double kukankyori = KukanCul(kyuyuzidouble, zenkaiMileage);
-    //txtThisMileage.Text = kukankyori.ToString();
-    ////計算ボタンにフォーカス
-    //this.ActiveControl = this.btnCalculation;
+    // 区間距離を算出して「区間距離」テキストボックスに設定
+    // 給油時走行距離(currentMileage),前回給油時走行距離(pastMileage)
+    $("#currentMileage").on('change', function () {
+        var currentMileage = $('#currentMileage').val();
+        var pastMileage = $('#pastMileage').val();
 
-    ////2 - 2.計算ボタンをクリック可能にする
-    //btnCalculation.Enabled = true;
+        currentMileage = Number(currentMileage);
+        pastMileage = Number(pastMileage);
+        // 「給油時走行距離(currentMileage)-前回給油時走行距離(pastMileage)」で、区間走行距離(thisMileage)を算出
+        var result = currentMileage - pastMileage;
+        $('#thisMileage').val(result);
 
+        // 計算ボタンをクリック可能にする
+        $('#calcBtn').prop('disabled', false);
+        $('#calcBtn').focus();
 
-
-
+    });
 });
 
 //ボタンの押印を制御する関数
