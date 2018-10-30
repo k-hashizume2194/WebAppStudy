@@ -62,6 +62,10 @@ namespace CLWebApp.Models.ViewModels
         public bool btnCalculationEnabled { get; set; }
 
 
+        /// <summary>
+        /// 計算完了判定
+        /// </summary>
+        public bool isCalclated { get; set; }
 
         //給油時走行距離入力チェックメソッド
         //public static ValidationResult CheckCurrentMileage(NenpiViewModel model)

@@ -31,6 +31,8 @@ namespace CLWebApp.Services
             model.thisMileage = "";
             model.fuelConsumption = "";
             model.btnCalculationEnabled = false;
+            // 計算完了判定をfalseにする
+            model.isCalclated = false;
             ////計算時に変更不可にした給油日、給油量、給油時走行距離を入力可に戻す
             //dateTimePicker.Enabled = true;
             //boxOilingQuantity.Enabled = true;
