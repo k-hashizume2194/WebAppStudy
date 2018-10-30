@@ -37,6 +37,7 @@ namespace CLWebApp.Models.ViewModels
         /// 給油時走行距離
         /// </summary>
         [RegularExpression(@"^\d{1,7}(\.\d)?$", ErrorMessage = "給油時走行距離は正の数値(小数点以下一桁まで)で入力してください")]
+        [CustomValidation(typeof(NenpiViewModel), "CheckCurrentMileage")]
         [Display(Name = "給油時走行距離：")]
         public string currentMileage { get; set; }
 
@@ -58,5 +59,22 @@ namespace CLWebApp.Models.ViewModels
         /// 計算ボタンクリック状態管理
         /// </summary>
         public bool btnCalculationEnabled { get; set; }
+
+
+
+        //給油時走行距離入力チェックメソッド
+        public static ValidationResult CheckCurrentMileage(NenpiViewModel model)
+        {
+            if (double.Parse(model.currentMileage) <= 0)
+            {
+                return new ValidationResult("給油時走行距離は0より大きい数値で入力してください");
+            }
+            if (double.Parse(model.currentMileage) < double.Parse(model.pastMileage))
+            {
+                return new ValidationResult("給油時総走行距離は前回の距離より大きな値で入力してください");
+            }
+
+            return ValidationResult.Success;
+        }
     }
 }
