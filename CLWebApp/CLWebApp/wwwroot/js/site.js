@@ -7,4 +7,11 @@ $(function () {
             $(this).select();
             return false;
         });
+
+    $('.datepicker').datepicker({
+        autoclose: 'true',
+        format: 'yyyy/mm/dd',
+        language: 'ja',
+        todayHighlight: true
+    });
 });
