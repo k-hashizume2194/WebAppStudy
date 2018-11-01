@@ -6,10 +6,11 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <ul class="nav navbar-nav">
-        <li><a asp-area="" asp-controller="Average" asp-action="Index">打率計算</a></li>
-        <li><a asp-area="" asp-controller="Nenpi" asp-action="Index">燃費計算</a></li>
-    </ul>
+<ul class="nav navbar-nav">
+    <li><a asp-area="" asp-controller="Average" asp-action="Index">打率計算</a></li>
+    <li><a asp-area="" asp-controller="Nenpi" asp-action="Index">燃費計算</a></li>
+    <li><a asp-area="" asp-controller="MasterMainte" asp-action="Index">マスターメンテ</a></li>
+</ul>
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
