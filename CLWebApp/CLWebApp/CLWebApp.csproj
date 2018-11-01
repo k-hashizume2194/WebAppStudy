@@ -5,6 +5,15 @@
     <UserSecretsId>aspnet-CLWebApp-9D2BAA0C-0407-419D-BA59-5165BE509BC5</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20181101011820_Test1.cs" />
+    <Compile Remove="Migrations\20181101011820_Test1.Designer.cs" />
+    <Compile Remove="Migrations\20181101014455_Test3.cs" />
+    <Compile Remove="Migrations\20181101014455_Test3.Designer.cs" />
+    <Compile Remove="Migrations\20181101015747_Test6.cs" />
+    <Compile Remove="Migrations\20181101015747_Test6.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
