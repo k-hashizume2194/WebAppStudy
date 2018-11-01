@@ -17,8 +17,8 @@ namespace CLWebApp.Models.ViewModels
         /// <summary>
         /// 給油日
         /// </summary>
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "給油日：")]
         public string dataTimePicker { get; set; }
 
