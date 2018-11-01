@@ -57,7 +57,7 @@ namespace CLWebApp.Controllers
 
             var model = new IndexViewModel
             {
-                Username = user.UserName,
+                FullName = user.FullName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
@@ -80,6 +80,17 @@ namespace CLWebApp.Controllers
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var userName = user.FullName;
+            if (model.FullName != userName)
+            {
+                user.FullName = model.FullName;
+                var setFullNamelResult = await _userManager.UpdateAsync(user);
+                if (!setFullNamelResult.Succeeded)
+                {
+                    throw new ApplicationException($"Unexpected error occurred setting FullName for user with ID '{user.Id}'.");
+                }
             }
 
             var email = user.Email;
