@@ -25,7 +25,7 @@ namespace CLWebApp.Services
             //区間走行距離:空白
             //区間燃費:空白
             //計算ボタン:クリック不可状態
-            model.dataTimePicker = DateTime.Now.ToString("yyyy/MM/d");
+            model.dataTimePicker = DateTime.Now.ToString("yyyy/MM/dd");
             model.boxOilingQuantity = "";
             model.currentMileage = "";
             model.thisMileage = "";

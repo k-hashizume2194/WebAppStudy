@@ -10,7 +10,7 @@ $(function () {
 
     $('.datepicker').datepicker({
         autoclose: 'true',
-        format: 'yyyy/mm/d',
+        format: 'yyyy/mm/dd',
         language: 'ja',
         todayHighlight: true
     });
