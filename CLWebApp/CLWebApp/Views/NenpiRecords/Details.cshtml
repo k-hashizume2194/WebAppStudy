@@ -1,0 +1,42 @@
+﻿@model CLWebApp.Models.NenpiRecord
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NenpiRecord</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RefuelDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RefuelDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mileage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mileage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TripMileage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TripMileage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FuelCost)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FuelCost)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
