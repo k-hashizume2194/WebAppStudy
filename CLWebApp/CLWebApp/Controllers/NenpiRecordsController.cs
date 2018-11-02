@@ -46,6 +46,8 @@ namespace CLWebApp.Controllers
         // GET: NenpiRecords/Create
         public IActionResult Create()
         {
+            // ユーザーリスト設定
+            SetNameSelectListToViewBag();
             return View();
         }
 
@@ -62,6 +64,8 @@ namespace CLWebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            // ユーザーリスト設定
+            SetNameSelectListToViewBag();
             return View(nenpiRecord);
         }
 
@@ -149,5 +153,16 @@ namespace CLWebApp.Controllers
         {
             return _context.NenpiRecords.Any(e => e.Id == id);
         }
+
+        /// <summary>
+        /// ユーザーネームリスト情報をViewBagに設定
+        /// </summary>
+        /// <param name="context"></param>
+        private void SetNameSelectListToViewBag()
+        {
+            var names = _context.Users.OrderBy(c => c.Email).Select(x => new { Id = x.Id, Value = x.FullName });
+            ViewBag.Namae = new SelectList(names,"Id","Value");
+        }
+
     }
 }
