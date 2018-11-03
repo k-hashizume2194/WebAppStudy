@@ -18,7 +18,7 @@
                 <button type="submit" class="btn btn-warning">クリア</button>
             </div>
         </form>
-        <form asp-action="Calc" method="post">
+        <form asp-action="Calc" id="calcForm" method="post">
             <input type="hidden" asp-for="btnCalculationEnabled" />
             <input type="hidden" asp-for="isCalclated" />
             <div class="form-group form-inline col-md-12">
