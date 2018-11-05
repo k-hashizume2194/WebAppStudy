@@ -2,11 +2,13 @@
 // HTMLの読み込みが完了したら動く
 $(function () {
 
-   // btnCalculationEnabledがfalseなら計算ボタンをdisabledにする
+    // btnCalculationEnabledがfalseなら計算ボタンをdisabledにする
     btnCalcChange();
 
-    // 給油時走行距離のchangeイベントを定義
+    // isCalclatedがfalseなら給油日、給油量、給油時総走行距離をdisabledにする
+    CalculatedChange();
 
+    // 給油時走行距離のchangeイベントを定義
 
 
     // イベントの中でやること
@@ -81,9 +83,7 @@ $(function () {
         // 計算ボタンをクリック可能にする
         $('#calcBtn').prop('disabled', false);
         $('#calcBtn').focus();
-
     });
-    
 });
 
 //計算ボタンの押印を制御する関数
@@ -92,13 +92,16 @@ function btnCalcChange() {
     var hiddenVal = $('#btnCalculationEnabled').val();
     // 文字列のboolean判定
     var btnCalculationEnabledval = hiddenVal.toLowerCase() === "true";
-
     // ②ボタンのdisabledを①の値をもとに切り替え]
     $('#calcBtn').prop('disabled', !btnCalculationEnabledval);
 }
 
-//計算後、押印や入力の不可をを制御する関数
-function calclatedChange() {
-    // ①isCalclatedの値をとる
-    // ②①の値をもとに「クリア」「記録」「終了」ボタン以外の入力部品を変更不可状態にする
+//計算後、入力を制御する関数
+function CalculatedChange() {
+    // ①isCalculatedの値をとる
+    var hiddenVal = $('#isCalculated').val();
+    // 文字列のboolean判定
+    var isCalculatedVal = hiddenVal.toLowerCase() === "true";
+    // ②①の値をもとに給油日、給油量、給油時総走行距離の入力部品の状態を切り替える
+    $('#dataTimePicker, #boxOilingQuantity, #currentMileage').prop('disabled', isCalculatedVal);
 }

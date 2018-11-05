@@ -2,9 +2,6 @@
 @model NenpiViewModel
 @{
     ViewData["Title"] = "燃費計算アプリ";
-
-    // 計算ボタンクリック状態
-    //string btnCalculationState = Model.btnCalculationEnabled ? "" : "disabled";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -12,61 +9,61 @@
 
 <div class="row">
     @*<div class="col-md-8">*@
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <form asp-action="Index" method="get">
-            <div class="col-md-offset-5">
-                <button type="submit" class="btn btn-warning">クリア</button>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form asp-action="Index" method="get">
+        <div class="col-md-offset-5">
+            <button type="submit" class="btn btn-warning">クリア</button>
+        </div>
+    </form>
+    <form asp-action="Calc" id="calcForm" method="post">
+        <input type="hidden" asp-for="btnCalculationEnabled" />
+        <input type="hidden" asp-for="isCalculated" value="@Model.isCalculated" />
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="dataTimePicker" class="col-md-2 text-right"></label>
+            <input type="text" asp-for="dataTimePicker" class="form-control col-md-3 datepicker" />
+            <span asp-validation-for="dataTimePicker" class="text-danger col-md-7"></span>
+        </div>
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="boxOilingQuantity" class="col-md-2 text-right"></label>
+            <input asp-for="boxOilingQuantity" class="form-control col-md-3" maxlength="5" style="ime-mode: disabled" />
+            <span asp-validation-for="boxOilingQuantity" class="text-danger col-md-7"></span>
+        </div>
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="pastMileage" class="col-md-2 text-right"></label>
+            <input asp-for="pastMileage" class="form-control col-md-3" readonly />
+        </div>
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="currentMileage" class="col-md-2 text-right"></label>
+            <input asp-for="currentMileage" class="form-control col-md-3" maxlength="9" style="ime-mode: disabled" />
+            <span asp-validation-for="currentMileage" class="text-danger col-md-7"></span>
+        </div>
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="thisMileage" class="col-md-2 text-right"></label>
+            <input asp-for="thisMileage" class="form-control col-md-3" readonly />
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-success btn-lg col-md-offset-2 col-md-3" id="calcBtn">計算</button>
             </div>
-        </form>
-        <form asp-action="Calc" id="calcForm" method="post">
-            <input type="hidden" asp-for="btnCalculationEnabled" />
-            <input type="hidden" asp-for="isCalclated" />
-            <div class="form-group form-inline col-md-12">
-                <label asp-for="dataTimePicker" class="col-md-2 text-right"></label>
-                <input type="text" asp-for="dataTimePicker" class="form-control col-md-3 datepicker"/>
-                <span asp-validation-for="dataTimePicker" class="text-danger col-md-7"></span>
-            </div>
-            <div class="form-group form-inline col-md-12">
-                <label asp-for="boxOilingQuantity" class="col-md-2 text-right"></label>
-                <input asp-for="boxOilingQuantity" class="form-control col-md-3" maxlength="5" style="ime-mode: disabled" />
-                <span asp-validation-for="boxOilingQuantity" class="text-danger col-md-7"></span>
-            </div>
-            <div class="form-group form-inline col-md-12">
-                <label asp-for="pastMileage" class="col-md-2 text-right"></label>
-                <input asp-for="pastMileage" class="form-control col-md-3" readonly />
-            </div>
-            <div class="form-group form-inline col-md-12">
-                <label asp-for="currentMileage" class="col-md-2 text-right"></label>
-                <input asp-for="currentMileage" class="form-control col-md-3" maxlength="9" style="ime-mode: disabled" />
-                <span asp-validation-for="currentMileage" class="text-danger col-md-7"></span>
-            </div>
-            <div class="form-group form-inline col-md-12">
-                <label asp-for="thisMileage" class="col-md-2 text-right"></label>
-                <input asp-for="thisMileage" class="form-control col-md-3" readonly />
-            </div>
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <button type="submit" class="btn btn-success btn-lg col-md-offset-2 col-md-3" id="calcBtn">計算</button>
-                </div>
-            </div>
-        </form>
-        <form asp-action="btnRecord" method="post">
-            <div class="form-group form-inline col-md-12">
-                <label asp-for="fuelConsumption" class="col-md-2 text-right"></label>
-                <input asp-for="fuelConsumption" class="form-control col-md-3 " readonly />
-                <span asp-validation-for="fuelConsumption" class="text-danger col-md-7"></span>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-danger">記録</button>
-            </div>
-        </form>
-        <form asp-controller="Home" asp-action="Index">
-            <div class="col-md-offset-5">
-                <button type="submit" class="btn btn-primary">ホームに戻る</button>
-            </div>
-        </form>
+        </div>
+    </form>
+    <form asp-action="btnRecord" method="post">
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="fuelConsumption" class="col-md-2 text-right"></label>
+            <input asp-for="fuelConsumption" class="form-control col-md-3 " readonly />
+            <span asp-validation-for="fuelConsumption" class="text-danger col-md-7"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">記録</button>
+        </div>
+    </form>
+    <form asp-controller="Home" asp-action="Index">
+        <div class="col-md-offset-5">
+            <button type="submit" class="btn btn-primary">ホームに戻る</button>
+        </div>
+    </form>
     @*</div>
-    <div class="col-md-4"></div>*@
+        <div class="col-md-4"></div>*@
 </div>
 
 

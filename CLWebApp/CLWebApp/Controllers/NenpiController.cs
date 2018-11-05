@@ -27,15 +27,8 @@ namespace CLWebApp.Controllers
         {
             NenpiViewModel model = new NenpiViewModel();
 
-            model.boxOilingQuantity = "123";
-
-            Console.WriteLine("(before)model.boxOilingQuantity：" + model.boxOilingQuantity);
-
             // 画面初期化
             _service.Clear(model);
-
-
-            Console.WriteLine("(after)model.boxOilingQuantity：" + model.boxOilingQuantity);
 
             return View(model);
         }
@@ -109,7 +102,7 @@ namespace CLWebApp.Controllers
                     //btnCalculation.Enabled = false;
 
                     ///windows formのものをviewmodelに置き換える
-                    model.isCalclated = true;
+                    model.isCalculated = true;
                 }
             }
             return View("Index",model);
