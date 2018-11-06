@@ -58,8 +58,23 @@ namespace CLWebApp.Services
         /// <returns>DBから取得した前回走行距離</returns>
         public double GetzenkaiFromdb()
         {
+            // TODO:スタブ
             // 前回給油時走行距離変数
-            string pastMileageStr = "0"; // TODO:スタブなのでゼロ固定
+            // string pastMileageStr = "0"; // TODO:スタブなのでゼロ固定
+
+
+            //・クリア処理の前回燃費取得のスタブ部を実装して完成させる
+            //・前回距離の取得条件にNenpiRecordのユーザーカラムの値がログインユーザーと一致する事が必要
+
+            
+
+
+
+
+            // TODO:スタブなので12.3"固定
+            return 12.3;
+
+
 
             //using (SQLiteConnection nenpiData = new SQLiteConnection("Data Source=" + db_file))
             //{
@@ -93,10 +108,10 @@ namespace CLWebApp.Services
             //    }
             //}
             //前回給油時走行距離テキストをdouble型に変換
-            double latestMileage = double.Parse(pastMileageStr);
+            // double latestMileage = double.Parse(pastMileageStr);
 
             //呼び出し元に戻り値として返す
-            return latestMileage;
+            // return latestMileage;
         }
 
         /// <summary>
