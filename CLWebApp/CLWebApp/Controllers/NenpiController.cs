@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CLWebApp.Data;
 using CLWebApp.Models.ViewModels;
 using CLWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -16,19 +17,28 @@ namespace CLWebApp.Controllers
     [Authorize]
     public class NenpiController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private nenpiService _service;
 
-        public NenpiController()
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="context">DBコンテキスト</param>
+        public NenpiController(ApplicationDbContext context)
         {
             _service = new nenpiService();
+            // コンテキストDi
+            _context = context;
         }
+
 
         public IActionResult Index()
         {
             NenpiViewModel model = new NenpiViewModel();
 
             // 画面初期化
-            _service.Clear(model);
+            _service.Clear(model, _context);
 
             return View(model);
         }

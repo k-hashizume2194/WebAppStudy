@@ -163,5 +163,7 @@ namespace CLWebApp.Controllers
             var names = _context.Users.OrderBy(c => c.Email).Select(x => new { Id = x.Id, Value = x.FullName });
             ViewBag.Namae = new SelectList(names,"Id","Value");
         }
+        
+
     }
 }
