@@ -105,7 +105,22 @@ namespace CLWebApp.Controllers
                     model.isCalculated = true;
                 }
             }
-            return View("Index",model);
+
+            // TODO:区間燃費が正しく反映されないのでreturnの方法を再考する
+
+            return View("Index", model);
+        }
+
+        /// <summary>
+        /// 記録処理
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Record(NenpiViewModel viewModel)
+        {
+            // TODO:処理の実装は別課題で実施
+            return View(viewModel);
         }
     }
 }

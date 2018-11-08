@@ -15,7 +15,7 @@
             <button type="submit" class="btn btn-warning">クリア</button>
         </div>
     </form>
-    <form asp-action="Calc" id="calcForm" method="post">
+    <form method="post">
         <input type="hidden" asp-for="btnCalculationEnabled" />
         <input type="hidden" asp-for="isCalculated" value="@Model.isCalculated" />
         <div class="form-group form-inline col-md-12">
@@ -43,18 +43,16 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                <button type="submit" class="btn btn-success btn-lg col-md-offset-2 col-md-3" id="calcBtn">計算</button>
+                <button type="button" class="submit_button btn btn-success btn-lg col-md-offset-2 col-md-3" id="calcBtn" data-action="@Url.Action("Calc","Nenpi")" data-btn="calcBtn">計算</button>
             </div>
         </div>
-    </form>
-    <form asp-action="btnRecord" method="post">
         <div class="form-group form-inline col-md-12">
             <label asp-for="fuelConsumption" class="col-md-2 text-right"></label>
             <input asp-for="fuelConsumption" class="form-control col-md-3 " readonly />
             <span asp-validation-for="fuelConsumption" class="text-danger col-md-7"></span>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-danger">記録</button>
+            <button type="button" class="submit_button btn btn-danger" id="recBtn" data-action="@Url.Action("Record","Nenpi")" data-btn="recBtn">記録</button>
         </div>
     </form>
     <form asp-controller="Home" asp-action="Index">
