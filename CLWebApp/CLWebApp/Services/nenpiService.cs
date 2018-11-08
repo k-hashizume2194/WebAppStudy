@@ -73,7 +73,7 @@ namespace CLWebApp.Services
             var nenpiRecord = _context.NenpiRecords
                 .OrderByDescending(p => p.RefuelDate)
                 .Where(p => p.User.Id == loginUser.Id)
-                .First();
+                .FirstOrDefault();
 
             if (nenpiRecord != null)
             {
