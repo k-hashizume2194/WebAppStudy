@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CLWebApp.Data;
+using CLWebApp.Models;
 using CLWebApp.Models.ViewModels;
 using CLWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CLWebApp.Controllers
@@ -28,17 +30,20 @@ namespace CLWebApp.Controllers
         public NenpiController(ApplicationDbContext context)
         {
             _service = new nenpiService();
-            // コンテキストDi
+            // コンテキストDI
             _context = context;
         }
 
-
         public IActionResult Index()
         {
+            // ログイン中のユーザー情報
+            string userName = User.Identity.Name;
+            var user = _context.Users.Where(p => p.UserName.Equals(userName)).First();
+
             NenpiViewModel model = new NenpiViewModel();
 
             // 画面初期化
-            _service.Clear(model, _context);
+            _service.Clear(model, _context, user);
 
             return View(model);
         }

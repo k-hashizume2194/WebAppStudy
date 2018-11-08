@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using CLWebApp.Models;
 
 namespace CLWebApp.Services
 {
@@ -18,7 +20,8 @@ namespace CLWebApp.Services
         /// </summary>
         /// <param name="model">燃費計算画面ViewModel</param>
         /// <param name="_context">DBコンテキスト</param>
-        public void Clear(NenpiViewModel model, ApplicationDbContext _context)
+        /// <param name="loginUser">ログインユーザー情報</param>
+        public void Clear(NenpiViewModel model, ApplicationDbContext _context, ApplicationUser loginUser)
         {
             //給油日: 現在日付
             //給油量:空白
@@ -41,7 +44,7 @@ namespace CLWebApp.Services
             //txtCurrentMileage.Enabled = true;
 
             ////前回給油時総走行距離取得メソッドを実行
-            double zenkai = GetzenkaiFromdb(_context);
+            double zenkai = GetzenkaiFromdb(_context, loginUser);
 
             //// 前回給油時走行距離が"0"の場合、前回給油時走行距離に"0.0"を表示
             if (zenkai == 0)
@@ -58,60 +61,24 @@ namespace CLWebApp.Services
         /// 前回走行距離取得メソッド
         /// </summary>
         /// <param name="_context">DBコンテキスト</param>
+        /// <param name="loginUser">ログインユーザー情報</param>
         /// <returns>DBから取得した前回走行距離</returns>
-        public double GetzenkaiFromdb(ApplicationDbContext _context)
+        public double GetzenkaiFromdb(ApplicationDbContext _context, ApplicationUser loginUser)
         {
-            // TODO:スタブ
             // 前回給油時走行距離変数
-            string pastMileageStr = "0"; // TODO:スタブなのでゼロ固定
-
-
-            //・クリア処理の前回燃費取得のスタブ部を実装して完成させる
-            //・前回距離の取得条件にNenpiRecordのユーザーカラムの値がログインユーザーと一致する事が必要
-
-
-            //using (SQLiteConnection nenpiData = new SQLiteConnection("Data Source=" + db_file))
-            //{
-            //    //燃費記録DB(SQLite)を作成する
-            //    nenpiData.Open();
-
-            //    using (SQLiteCommand command = nenpiData.CreateCommand())
-            //    {
-            //        // 燃費記録DB(SQLite)に燃費記録用テーブルがなければ、燃費記録用テーブル「t_nenpi」を作成
-            //        command.CommandText = "CREATE TABLE if not exists t_nenpi(id INTEGER  PRIMARY KEY AUTOINCREMENT, refuel_date TEXT, mileage REAL, trip_mileage REAL, fuel_cost REAL)";
-            //        command.ExecuteNonQuery();
-
-
-            //        // 燃費記録用テーブル「t_nenpi」から以下の条件でレコード抽出
-            //        // 条件：給油日(refuel_date)が直近(一番最近)かつ給油時走行距離(mileage)が最新
-            //        command.CommandText = "SELECT * FROM t_nenpi  order by refuel_date desc, mileage desc";
-            //        using (SQLiteDataReader reader = command.ExecuteReader())
-            //        {
-            //            // 給油時走行距離(mileage)のデータを燃費記録DB(SQLite)から呼び出す
-            //            if (reader.Read())
-            //            {
-            //                //燃費記録用テーブルから給油時走行距離(mileage)を取得できた場合、"pastMileageStr"に代入
-            //                pastMileageStr = reader["mileage"].ToString();
-            //            }
-            //            else
-            //            {
-            //                // 燃費記録用テーブル内に登録データがない場合、前回給油時走行距離に「"0"」を返却
-            //                pastMileageStr = "0";
-            //            }
-            //        }
-            //    }
-            //}
+            string pastMileageStr = "0";
 
             // 給油時走行距離(mileage)のデータを燃費記録DBから呼び出す
-            bool hoge = true;
-            if (hoge)
+            // 給油日が一番新しい自分のレコードを取得
+            var nenpiRecord = _context.NenpiRecords
+                .OrderByDescending(p => p.RefuelDate)
+                .Where(p => p.User.Id == loginUser.Id)
+                .First();
+
+            if (nenpiRecord != null)
             {
-                //燃費記録用テーブルから給油時走行距離(mileage)を取得できた場合、"pastMileageStr"に代入
-                //pastMileageStr = reader["mileage"].ToString();
-                //_context.NenpiRecords
-                //var pastMileageVar = _context.NenpiRecords.Select(x => new { Id = x.Id, Value = x.TripMileage });
-
-
+                //燃費記録用テーブルから給油時走行距離(mileage)を取得できた場合、"pastMileageStr"に代入                
+                pastMileageStr = nenpiRecord.TripMileage.ToString();
             }
             else
             {
