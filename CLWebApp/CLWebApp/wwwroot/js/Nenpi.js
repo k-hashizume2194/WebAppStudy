@@ -69,6 +69,9 @@ $(function () {
     //    return;
     //}
 
+
+
+
     // 区間距離を算出して「区間距離」テキストボックスに設定
     $("#currentMileage").on('change', function () {
 
@@ -98,6 +101,12 @@ $(function () {
         // 計算のため数値に変換
         var currentMileageNum = Number(currentMileageVal);
         var pastMileageNum = Number(pastMileageVal);
+
+        // 給油時走行距離が前回距離より小さい場合、アラートを出す。。
+        if (currentMileageNum < pastMileageNum) {
+            alert('前回給油時走行距離より大きな値で入力してください');
+            return;
+        }
 
         // 「給油時走行距離(currentMileage)-前回給油時走行距離(pastMileage)」で、区間走行距離(thisMileage)を算出
         var result = currentMileageNum - pastMileageNum;
