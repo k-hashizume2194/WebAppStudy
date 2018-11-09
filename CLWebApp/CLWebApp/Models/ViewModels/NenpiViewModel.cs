@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -38,9 +39,9 @@ namespace CLWebApp.Models.ViewModels
         /// <summary>
         /// 給油時走行距離
         /// </summary>
-        [RegularExpression(@"^\d{1,7}(\.\d)?$", ErrorMessage = "給油時走行距離は正の数値(小数点以下一桁まで)で入力してください")]
-        //[CustomValidation(typeof(NenpiViewModel), "CheckCurrentMileage")]
-        [Display(Name = "給油時走行距離：")]
+		[Range(0.1, 9999999.9, ErrorMessage = "給油時走行距離は0より大きい数値(最大：9999999.9)で入力してください")]
+		[RegularExpression(@"^\d{1,7}(\.\d)?$", ErrorMessage = "給油時走行距離は正の数値(小数点以下一桁まで)で入力してください")]
+		[Display(Name = "給油時走行距離：")]
         public string currentMileage { get; set; }
 
         /// <summary>

@@ -20,7 +20,7 @@ namespace CLWebApp.Controllers
     public class NenpiController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private nenpiService _service;
+        private NenpiService _service;
 
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace CLWebApp.Controllers
         /// <param name="context">DBコンテキスト</param>
         public NenpiController(ApplicationDbContext context)
         {
-            _service = new nenpiService();
+            _service = new NenpiService();
             // コンテキストDI
             _context = context;
         }
@@ -82,7 +82,10 @@ namespace CLWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                string oiling = model.boxOilingQuantity;
+				// POST後の画面再描画のため状態をクリア
+				ModelState.Clear();
+
+				string oiling = model.boxOilingQuantity;
                 string mileageVal = model.thisMileage;
 
                 /////1.給油量の入力チェックを行う
@@ -90,40 +93,26 @@ namespace CLWebApp.Controllers
                 string message = _service.CheckOilingQuantity(oiling);
                 if (!string.IsNullOrWhiteSpace(message))
                 {
-                    //    // ⇒入力チェックの結果、エラーがあれば
-                    //    //メッセージをダイアログに出し、給油量テキストボックスにフォーカスし、処理終了
-                    //    MessageBox.Show(message);
                     // エラーの場合
                     ModelState.AddModelError(string.Empty, message);
-                    //ActiveControl = model.boxOilingQuantity;
-                //    return;
                 }
                 else
                 {
-                    /////2-1.燃費計算
-                    /////区間燃費 ＝ 区間距離 / 給油量
-                    double oilingdouble = double.Parse(model.boxOilingQuantity);
+					/////2-1.燃費計算
+					/////区間燃費 ＝ 区間距離 / 給油量
+					double oilingdouble = double.Parse(model.boxOilingQuantity);
                     double valThisMileage = double.Parse(model.currentMileage);
                     double nenpi = _service.Culcnenpi(oilingdouble, valThisMileage);
-
 
                     //// 3.燃費計算結果をテキストボックスにセット
                     model.fuelConsumption = nenpi.ToString("#0.0");
 
                     /////4.「クリア」「記録」「終了」ボタン以外の入力部品を変更不可状態にする。   
-                    //dateTimePicker.Enabled = false;
-                    //boxOilingQuantity.Enabled = false;
-                    //txtCurrentMileage.Enabled = false;
-                    //btnCalculation.Enabled = false;
-
-                    ///windows formのものをviewmodelに置き換える
                     model.isCalculated = true;
-                }
+				}
             }
 
-            // TODO:区間燃費が正しく反映されないのでreturnの方法を再考する
-
-            return View("Index", model);
+			return View("Index", model);
         }
 
         /// <summary>

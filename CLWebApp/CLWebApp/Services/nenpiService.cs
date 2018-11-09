@@ -13,7 +13,7 @@ namespace CLWebApp.Services
     /// <summary>
     /// 燃費計算サービス
     /// </summary>
-    public class nenpiService
+    public class NenpiService
     {
         /// <summary>
         /// 入力値クリアメソッド
