@@ -126,5 +126,5 @@ function CalculatedChange() {
     // 文字列のboolean判定
     var isCalculatedVal = hiddenVal.toLowerCase() === "true";
     // ②①の値をもとに給油日、給油量、給油時総走行距離の入力部品の状態を切り替える
-    $('#dataTimePicker, #boxOilingQuantity, #currentMileage').prop('disabled', isCalculatedVal);
+    $('#dataTimePicker, #boxOilingQuantity, #currentMileage').prop('readonly', isCalculatedVal);
 }
