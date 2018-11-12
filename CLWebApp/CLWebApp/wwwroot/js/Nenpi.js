@@ -8,20 +8,6 @@ $(function () {
     // isCalclatedがfalseなら給油日、給油量、給油時総走行距離をdisabledにする
     CalculatedChange();
 
-
-    //$('#recBtn').click(function () {
-    //        var nenpiVal = $('#fuelfuelConsumption').val();
-
-    //        if (!nenpiVal) {
-    //            alert('記録処理は区間燃費の算出後に実行してください');
-    //            return;
-    //        } if (nenpiVal) {
-    //            alert('aaa');
-    //            return;
-    //        }
-    //});
-    
-
     // ひと画面でボタンを切り替える
     $('.submit_button').on('click', function () {
         // 対象ボタンの親のForm取得
@@ -37,9 +23,8 @@ $(function () {
             var hiddenVal = $('#isCalculated').val();
             // 文字列のboolean判定
             var isCalculatedVal = hiddenVal.toLowerCase() === "false";
-
             // ②①の値をもとに区間燃費が未入力の場合、アラートを出す
-            if (isCalculatedVal == true) {
+            if (isCalculatedVal) {
                 alert('記録処理は区間燃費の算出後に実行してください');
                 return;
             }
@@ -52,9 +37,7 @@ $(function () {
             }
         }
         form.submit();
-    });
-
-          
+    });       
 
     // 給油時走行距離のchangeイベントを定義
 
