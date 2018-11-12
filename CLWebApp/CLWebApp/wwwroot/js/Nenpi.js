@@ -8,6 +8,20 @@ $(function () {
     // isCalclatedがfalseなら給油日、給油量、給油時総走行距離をdisabledにする
     CalculatedChange();
 
+
+    //$('#recBtn').click(function () {
+    //        var nenpiVal = $('#fuelfuelConsumption').val();
+
+    //        if (!nenpiVal) {
+    //            alert('記録処理は区間燃費の算出後に実行してください');
+    //            return;
+    //        } if (nenpiVal) {
+    //            alert('aaa');
+    //            return;
+    //        }
+    //});
+    
+
     // ひと画面でボタンを切り替える
     $('.submit_button').on('click', function () {
         // 対象ボタンの親のForm取得
@@ -19,6 +33,17 @@ $(function () {
         var btn = $(this).data('btn');
         if (btn == "recBtn")
         {
+            // ①isCalculatedの値をとる
+            var hiddenVal = $('#isCalculated').val();
+            // 文字列のboolean判定
+            var isCalculatedVal = hiddenVal.toLowerCase() === "false";
+
+            // ②①の値をもとに区間燃費が未入力の場合、アラートを出す
+            if (isCalculatedVal == true) {
+                alert('記録処理は区間燃費の算出後に実行してください');
+                return;
+            }
+            // 区間燃費が表示されている場合
             // 記録ボタンの場合
             var result = window.confirm('記録処理を実行します。よろしいですか？');
             if (!result)
@@ -103,8 +128,8 @@ $(function () {
         var pastMileageNum = Number(pastMileageVal);
 
         // 給油時走行距離が前回距離より小さい場合、アラートを出す。。
-        if (currentMileageNum < pastMileageNum) {
-            alert('前回給油時走行距離より大きな値で入力してください');
+        if (currentMileageNum <= pastMileageNum) {
+            alert('給油時総走行距離は前回の距離より大きな値で入力してください');
             return;
         }
 
