@@ -1,0 +1,34 @@
+﻿@using CLWebApp.Models.ViewModels
+@model Practice1ViewModel
+@{
+    ViewData["Title"] = "Practice1(橋詰)";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Calc" method="post">
+    <div class="form-group form-inline col-md-12">
+        <label asp-for="height"></label>
+        <input asp-for="height" />
+        <span asp-validation-for="height"></span>
+    </div>
+    <div class="form-group form-inline col-md-12">
+        <label asp-for="weight"></label>
+        <input asp-for="weight" />
+        <span asp-validation-for="weight"></span>
+    </div>
+    <div class="form-group form-inline col-md-12">
+            <button type="submit">計算</button>
+    </div>
+</form>
+
+    <div class="form-group form-inline col-md-12">
+        <label asp-for="bmi"></label>
+        <input asp-for="bmi" readonly />
+    </div>
+
+    <form asp-controller="Home" asp-action="Index">
+        <div class="col-md-offset-5">
+            <button type="submit" class="btn btn-primary">ホームに戻る</button>
+        </div>
+    </form>

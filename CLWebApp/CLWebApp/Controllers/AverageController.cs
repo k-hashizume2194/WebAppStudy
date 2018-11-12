@@ -17,14 +17,14 @@ namespace CLWebApp.Controllers
     public class AverageController : Controller
     {
         // 打率計算サービス
-        private AverageService _servise;
+        private AverageService _service;
 
         /// <summary>
         /// コンストラクター
         /// </summary>
         public AverageController()
         {
-           _servise = new AverageService();
+           _service = new AverageService();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace CLWebApp.Controllers
         {
             AverageViewModel model = new AverageViewModel();
             // 画面初期化
-            _servise.Clear(model);
+            _service.Clear(model);
             return View(model);
         }
 
@@ -55,7 +55,7 @@ namespace CLWebApp.Controllers
                 bool chkMou = model.Mou;
 
                 // 入力チェック結果を取得
-                string message = _servise.InputCheck(batsVal, hitsVal);
+                string message = _service.InputCheck(batsVal, hitsVal);
 
                 // ⇒入力チェックの結果、エラーがあればメッセージをダイアログに出して処理終了
                 if (!string.IsNullOrWhiteSpace(message))
@@ -81,10 +81,10 @@ namespace CLWebApp.Controllers
                         double hitsDoubleVal = double.Parse(hitsVal);
 
                         // 打率計算結果を取得
-                        double averageVal = _servise.CalcAverage(batsDoubleVal, hitsDoubleVal, chkMou);
+                        double averageVal = _service.CalcAverage(batsDoubleVal, hitsDoubleVal, chkMou);
 
                         // 打率表示整形メソッドの結果をstring型に代入
-                        string aveCharacterString = _servise.AveFormat(averageVal, chkMou);
+                        string aveCharacterString = _service.AveFormat(averageVal, chkMou);
                         // 打率表示テキストボックスのテキストに代入
                         model.Average = aveCharacterString;
                     }
