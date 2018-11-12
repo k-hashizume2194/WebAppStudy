@@ -22,9 +22,9 @@ $(function () {
             // ①isCalculatedの値をとる
             var hiddenVal = $('#isCalculated').val();
             // 文字列のboolean判定
-            var isCalculatedVal = hiddenVal.toLowerCase() === "false";
+            var isnotCalculatedVal = hiddenVal.toLowerCase() === "false";
             // ②①の値をもとに区間燃費が未入力の場合、アラートを出す
-            if (isCalculatedVal) {
+            if (isnotCalculatedVal) {
                 alert('記録処理は区間燃費の算出後に実行してください');
                 return;
             }
