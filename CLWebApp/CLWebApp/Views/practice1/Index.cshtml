@@ -18,17 +18,22 @@
         <span asp-validation-for="weight"></span>
     </div>
     <div class="form-group form-inline col-md-12">
-            <button type="submit">計算</button>
+        <button type="submit" id="calcbmi">計算</button>
     </div>
 </form>
 
-    <div class="form-group form-inline col-md-12">
-        <label asp-for="bmi"></label>
-        <input asp-for="bmi" readonly />
-    </div>
+<div class="form-group form-inline col-md-12">
+    <label asp-for="bmi"></label>
+    <input asp-for="bmi" readonly />
+</div>
 
-    <form asp-controller="Home" asp-action="Index">
-        <div class="col-md-offset-5">
-            <button type="submit" class="btn btn-primary">ホームに戻る</button>
-        </div>
-    </form>
+<form asp-controller="Home" asp-action="Index">
+    <div class="col-md-offset-5">
+        <button type="submit" class="btn btn-primary">ホームに戻る</button>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+<script src="~/js/Practice1.js"></script>
