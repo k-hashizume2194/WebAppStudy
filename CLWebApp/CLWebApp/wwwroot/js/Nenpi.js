@@ -144,4 +144,16 @@ function CalculatedChange() {
     var isCalculatedVal = hiddenVal.toLowerCase() === "true";
     // ②①の値をもとに給油日、給油量、給油時総走行距離の入力部品の状態を切り替える
     $('#dataTimePicker, #boxOilingQuantity, #currentMileage').prop('readonly', isCalculatedVal);
+
+    // 給油日カレンダーのreadonly時制御
+    // readonlyにする個所でカレンダーのclassを外し、
+    // readonly解除時は、(カレンダーのクラスが無ければ)追加する
+    if (isCalculatedVal)
+    {
+        $("#dataTimePicker").removeClass("datepicker");
+    }
+    else
+    {
+        $("#dataTimePicker").addClass("datepicker");
+    }
 }
