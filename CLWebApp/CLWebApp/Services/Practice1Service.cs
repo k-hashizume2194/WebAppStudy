@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CLWebApp.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,14 @@ namespace CLWebApp.Services
 {
     public class Practice1Service
     {
+
+        public void Clear(Practice1ViewModel model)
+        {
+            model.height = "";
+            model.weight = "";
+            model.bmi = "";
+            model.btnCalculationEnabled = false;
+        }
 
         /// <summary>
         /// BMI計算メソッド

@@ -31,9 +31,10 @@ namespace CLWebApp.Controllers
 
         public IActionResult Index()
         {
-            //Practice1ViewModel model = new Practice1ViewModel();
+            Practice1ViewModel model = new Practice1ViewModel();
+            _service.Clear(model);
 
-            return View();
+            return View(model);
         }
 
 
@@ -51,6 +52,8 @@ namespace CLWebApp.Controllers
             double bmi = _service.CalcBmi(heightDouble, weightDouble);
 
             model.bmi = bmi.ToString();
+
+            model.btnCalculationEnabled = true;
 
             return View("Index", model);
 

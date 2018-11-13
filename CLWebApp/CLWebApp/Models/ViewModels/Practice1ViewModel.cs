@@ -21,5 +21,10 @@ namespace CLWebApp.Models.ViewModels
         [Display(Name = "BMI：")]
         public string bmi { get; set; }
 
+        /// <summary>
+        /// 計算ボタンクリック状態管理
+        /// </summary>
+        public bool btnCalculationEnabled { get; set; }
+
     }
 }
