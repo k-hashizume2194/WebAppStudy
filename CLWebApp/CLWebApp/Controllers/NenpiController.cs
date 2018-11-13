@@ -49,29 +49,6 @@ namespace CLWebApp.Controllers
         }
 
 
-        // POST: Home/Index
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Index(NenpiViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                if (viewModel.boxOilingQuantity == "")
-                {
-                    // エラーの場合
-                    ModelState.AddModelError(string.Empty, "給油量を入力してください");
-                }
-                else
-                {
-                    // 正常の場合
-                    return RedirectToAction("Index");
-                }
-            }
-            return View(viewModel);
-        }
-        
-
-
         /// <summary>
         /// 計算処理
         /// </summary>
