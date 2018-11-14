@@ -76,7 +76,7 @@ namespace CLWebApp.Controllers
 
                 /////1.給油量の入力チェックを行う
                 //// 入力チェック結果を取得
-                string message = _service.CheckVictory(victoryString,defeatString,drawString);
+                string message = _service.InputCheck(victoryString,defeatString,drawString);
                 if (!string.IsNullOrWhiteSpace(message))
                 {
                     // エラーの場合
@@ -87,7 +87,7 @@ namespace CLWebApp.Controllers
                     // 打数がゼロの場合、"-" を表示
                     if ("0".Equals(victoryString))
                     {
-                        model.Winning = "-";
+                        model.Winning = ".000";
                     }
                     else
                     {
@@ -96,7 +96,7 @@ namespace CLWebApp.Controllers
                         double winningDouble = _service.WinPercentagealcalc(victorydouble, defeatdouble);
 
                         //// 計算結果をテキストボックスにセット
-                        model.Winning = winningDouble.ToString();
+                        model.Winning = winningDouble.ToString("F3");
 
 
                     }

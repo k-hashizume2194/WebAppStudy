@@ -27,7 +27,7 @@ namespace CLWebApp.Models.ViewModels
         /// <summary>
         /// 引き分け
         /// </summary>
-        [Required(ErrorMessage = "引き分け数を入力してください")]
+        // [Required(ErrorMessage = "引き分け数を入力してください")]
         [RegularExpression(@"[0-9]+", ErrorMessage = "引き分け数は正の整数を入力してください")]
         [Display(Name = "引き分け数：")]
         public string Draw { get; set; }

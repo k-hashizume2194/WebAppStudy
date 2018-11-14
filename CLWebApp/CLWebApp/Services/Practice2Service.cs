@@ -35,32 +35,33 @@ namespace CLWebApp.Services
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        public string CheckVictory(string victory, string defeat, string draw)
+        public string InputCheck(string victory, string defeat, string draw)
         {
             /// 未入力チェック
             /// ※空白、ゼロの場合にエラーとする
-            if (!string.IsNullOrWhiteSpace(victory))
+            if (string.IsNullOrWhiteSpace(victory))
             {
-                //nullではなく、かつ空文字列でもなく、かつ空白文字列でもない
+                return "勝利数を入力してください";
             }
-            else
+            if (string.IsNullOrWhiteSpace(defeat))
             {
                 // null、もしくは空文字列、もしくは空白文字列
-                return "勝利数を入力してください";
+                return "敗戦数を入力してください";
             }
 
             //数値かどうかチェック
             /// 正の数値チェック
-            ///「勝利数」が0以下の数値以外の場合エラーにする
-            double victoryNumber;
-            bool canConvert = double.TryParse(victory, out victoryNumber);
+            //「勝利数」が0以下の数値以外の場合エラーにする
+            //double victoryNumber;
+            //bool canConvert = double.TryParse(victory, out victoryNumber);
 
-            if (!canConvert || victoryNumber <= 0)
-            {
-                return "勝利数は0より大きい数値で入力してください";
-            }
+            //if (!canConvert || victoryNumber <= 1)
+            //{
+            //    return "勝利数は0より大きい数値で入力してください";
+            //}
             return "";
         }
+
 
     }
 }
