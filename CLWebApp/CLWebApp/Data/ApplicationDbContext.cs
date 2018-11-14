@@ -17,6 +17,8 @@ namespace CLWebApp.Data
 
         public DbSet<NenpiRecord> NenpiRecords { get; set; }
 
+        public DbSet<ParkingInfo> ParkingInfos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

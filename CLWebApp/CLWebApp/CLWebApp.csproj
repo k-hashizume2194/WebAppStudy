@@ -12,6 +12,8 @@
     <Compile Remove="Migrations\20181101014455_Test3.Designer.cs" />
     <Compile Remove="Migrations\20181101015747_Test6.cs" />
     <Compile Remove="Migrations\20181101015747_Test6.Designer.cs" />
+    <Compile Remove="Migrations\20181114045915_Parking.cs" />
+    <Compile Remove="Migrations\20181114045915_Parking.Designer.cs" />
   </ItemGroup>
 
 
