@@ -10,7 +10,7 @@ namespace CLWebApp.Models.ViewModels
     {
 
         [Display(Name = "あなたのBMI:")]
-        public string bmi { get; set; }
+        public string yourbmi { get; set; }
 
         [Display(Name = "あなたの診断結果")]
         public string diagnosis { get; set; }

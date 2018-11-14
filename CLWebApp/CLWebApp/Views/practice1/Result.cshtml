@@ -7,8 +7,8 @@
 <h2>@ViewData["Title"]</h2>
 
 <div class="form-group form-inline col-md-12">
-    <label asp-for="bmi" class="col-md-2 text-right"></label>
-    <input asp-for="bmi" class="form-control col-md-3" maxlength="6" style ="background-color:#ffffff;" readonly />
+    <label asp-for="yourbmi" class="col-md-2 text-right"></label>
+    <input asp-for="yourbmi" class="form-control col-md-3" maxlength="6" style ="background-color:#ffffff;" readonly />
 </div>
 
 <div class="form-group form-inline col-md-12">
@@ -31,6 +31,6 @@
     @section Scripts {
         @await Html.PartialAsync("_ValidationScriptsPartial")
     }
-
+    <script src="~/js/Result.js"></script>
 
 

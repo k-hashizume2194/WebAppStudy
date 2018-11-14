@@ -48,7 +48,8 @@
 @*<button id="opener">診断結果</button>
 <div id="dialog" title="ダイアログのタイトル">結果</div>*@
 
-<form asp-action="Result" method="get">
+<form asp-action="Result" method="post">
+    <input type="hidden" asp-for="bmi" />
     <button type="submit" class="btn btn-info btn-md col-md-offset-2 col-md-3" id="ResBtn">診断結果</button>
 </form>
 

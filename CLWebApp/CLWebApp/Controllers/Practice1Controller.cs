@@ -72,13 +72,21 @@ namespace CLWebApp.Controllers
         }
 
 
+
         /// <summary>
         /// 診断結果
         /// </summary>
+        /// <param name="model"></param>
         /// <returns></returns>
-        public IActionResult Result()
+        [HttpPost]
+        public IActionResult Result(Practice1ViewModel model)
         {
-            return View();
+            // ResultViewModelのインスタンス生成
+            ResultViewModel resultViewModel = new ResultViewModel();
+            // Practice1の値をResultに当てはめる
+            resultViewModel.yourbmi = model.bmi;
+            // 値を渡す
+            return View(resultViewModel);
         }
     }
 }
