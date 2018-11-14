@@ -11,6 +11,7 @@ namespace CLWebApp.Services
 
         public void Clear(Practice1ViewModel model)
         {
+            model.datetime = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
             model.height = "";
             model.weight = "";
             model.bmi = "";
@@ -26,8 +27,8 @@ namespace CLWebApp.Services
         public double CalcBmi(double heightDouble, double weightDouble)
         {
             double bmiDouble = (weightDouble / (heightDouble * heightDouble));
-            return(bmiDouble);
-            //return Math.Round(bmiDouble, 1, MidpointRounding.AwayFromZero);
+            //return (bmiDouble);
+            return Math.Round(bmiDouble, 1, MidpointRounding.AwayFromZero);
         }
     }
 }

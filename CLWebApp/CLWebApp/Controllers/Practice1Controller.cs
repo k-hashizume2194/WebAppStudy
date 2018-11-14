@@ -54,9 +54,21 @@ namespace CLWebApp.Controllers
             model.bmi = bmi.ToString();
 
             model.btnCalculationEnabled = true;
+            model.isCalculated = true;
 
             return View("Index", model);
 
+        }
+        /// <summary>
+        /// 記録処理
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Record(Practice1ViewModel viewModel)
+        {
+            // TODO:処理の実装
+            return View(viewModel);
         }
     }
 }

@@ -5,7 +5,7 @@ $(function () {
     // btnCalculationEnabledがfalseなら計算ボタンをdisabledにする
     btnCalcChange();
 
-    // isCalclatedがfalseなら給油日、給油量、給油時総走行距離をdisabledにする
+    // isCalclatedがfalseなら給油日、給油量、給油時総走行距離をreadonlyにする
     CalculatedChange();
 
     // ひと画面でボタンを切り替える

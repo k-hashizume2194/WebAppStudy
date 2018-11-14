@@ -21,4 +21,8 @@ $(function () {
         language: 'ja',
         todayHighlight: true
     });
+
+    // jQueryのDateTimePicker
+    $.datetimepicker.setLocale('ja');
+    $('.jqdatetimepicker').datetimepicker();
 });
