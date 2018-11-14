@@ -70,5 +70,15 @@ namespace CLWebApp.Controllers
             // TODO:処理の実装
             return View(viewModel);
         }
+
+
+        /// <summary>
+        /// 診断結果
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Result()
+        {
+            return View();
+        }
     }
 }

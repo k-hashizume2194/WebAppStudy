@@ -14,7 +14,7 @@ namespace CLWebApp.Models.ViewModels
         /// </summary>
         [Required(ErrorMessage = "測定日時を入力してください")]
         [Display(Name = "測定日時：")]
-        public string datetime { get; set; }
+        public string measuringdate { get; set; }
 
         [Range(0.01, 3.00, ErrorMessage = "身長は0より大きい数値(最大：3.00)、入力してください")]
         [Required(ErrorMessage = "身長を入力してください")]
@@ -33,6 +33,11 @@ namespace CLWebApp.Models.ViewModels
         /// 計算ボタンクリック状態管理
         /// </summary>
         public bool btnCalculationEnabled { get; set; }
+
+        /// <summary>
+        /// 診断結果ボタンクリック状態管理
+        /// </summary>
+        public bool btnResultEnabled { get; set; }
 
         /// <summary>
         /// 計算完了判定

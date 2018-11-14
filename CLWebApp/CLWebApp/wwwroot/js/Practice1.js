@@ -2,8 +2,7 @@
     // HTMLの読み込みが完了したら動く
 $(function () {
 
-    //$.datetimepicker.setLocale('ja');
-    //$('.jqdatetimepicker').datetimepicker();
+
 
     // btnCalculationEnabledがfalseなら計算ボタンをdisabledにする
     btnCalcChange();
@@ -67,6 +66,9 @@ $(function () {
     //$("#opener").click(function () {
     //    $("#dialog").dialog("open");
     //});
+
+    $.datetimepicker.setLocale('ja');
+    $('.jqdatetimepicker').datetimepicker();
 });
 
 //計算ボタンの押印を制御する関数
@@ -86,15 +88,16 @@ function CalculatedChange() {
     // 文字列のboolean判定
     var isCalculatedVal = hiddenVal.toLowerCase() === "true";
     // ②①の値をもとに給油日、給油量、給油時総走行距離の入力部品の状態を切り替える
-    $('#datetime, #height, #weight').prop('readonly', isCalculatedVal);
+    $('#measuringdate, #height, #weight').prop('readonly', isCalculatedVal);
+    $('#ResBtn').prop('disabled', !isCalculatedVal);
 
     // 測定日時カレンダーのreadonly時制御
     // readonlyにする個所でカレンダーのclassを外し、
     // readonly解除時は、(カレンダーのクラスが無ければ)追加する
     if (isCalculatedVal) {
-        $("#datetime").removeClass("jqdatetimepicker");
+        $("#measuringdate").removeClass("jqdatetimepicker");
     }
     else {
-        $("#datetime").addClass("jqdatetimepicker");
+        $("#measuringdate").addClass("jqdatetimepicker");
     }
 }

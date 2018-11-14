@@ -1,7 +1,7 @@
 ﻿@using CLWebApp.Models.ViewModels
 @model Practice1ViewModel
 @{
-    ViewData["Title"] = "Practice1(橋詰)";
+    ViewData["Title"] = "BMI計算";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -15,9 +15,9 @@
 <form asp-action="Calc" method="post">
     <input type="hidden" asp-for="btnCalculationEnabled" />
     <div class="form-group form-inline col-md-12">
-        <label asp-for="datetime" class="col-md-2 text-right"></label>
-        <input asp-for="datetime" type="text" class="jqdatetimepicker">
-        <span asp-validation-for="datetime" class="text-danger"></span>
+        <label asp-for="measuringdate" class="col-md-2 text-right"></label>
+        <input asp-for="measuringdate" type="text" class="jqdatetimepicker">
+        <span asp-validation-for="measuringdate" class="text-danger"></span>
     </div>
     <div class="form-group form-inline col-md-12">
         <label asp-for="height" class="col-md-2 text-right"></label>
@@ -48,13 +48,17 @@
 @*<button id="opener">診断結果</button>
 <div id="dialog" title="ダイアログのタイトル">結果</div>*@
 
-<form asp-controller="Home" asp-action="Index">
-    <div class="col-md-offset-5">
-        <button type="submit" class="btn btn-primary">ホームに戻る</button>
-    </div>
+<form asp-action="Result" method="get">
+    <button type="submit" class="btn btn-info btn-md col-md-offset-2 col-md-3" id="ResBtn">診断結果</button>
 </form>
 
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}
-<script src="~/js/Practice1.js"></script>
+    <form asp-controller="Home" asp-action="Index">
+        <div class="col-md-offset-5">
+            <button type="submit" class="btn btn-primary">ホームに戻る</button>
+        </div>
+    </form>
+
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
+    <script src="~/js/Practice1.js"></script>

@@ -11,11 +11,12 @@ namespace CLWebApp.Services
 
         public void Clear(Practice1ViewModel model)
         {
-            model.datetime = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+            model.measuringdate = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
             model.height = "";
             model.weight = "";
             model.bmi = "";
             model.btnCalculationEnabled = false;
+            model.btnResultEnabled = false;
         }
 
         /// <summary>

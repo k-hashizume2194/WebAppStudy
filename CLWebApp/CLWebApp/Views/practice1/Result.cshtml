@@ -1,0 +1,36 @@
+﻿@using CLWebApp.Models.ViewModels
+@model ResultViewModel
+@{
+    ViewData["Title"] = "診断結果";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="form-group form-inline col-md-12">
+    <label asp-for="bmi" class="col-md-2 text-right"></label>
+    <input asp-for="bmi" class="form-control col-md-3" maxlength="6" style ="background-color:#ffffff;" readonly />
+</div>
+
+<div class="form-group form-inline col-md-12">
+    <label asp-for="diagnosis" class="col-md-2 text-right"></label>
+    <textarea asp-for="diagnosis" class="form-control col-md-3" maxlength="6" style ="background-color:#ffffff;" readonly></textarea>
+</div>
+
+    <form asp-controller="Practice1" asp-action="Index">
+        <div class="col-md-offset-5">
+            <button type="submit" class="btn btn-primary">BMI計算に戻る</button>
+        </div>
+    </form>
+
+    <form asp-controller="Home" asp-action="Index">
+        <div class="col-md-offset-5">
+            <button type="submit" class="btn btn-primary">ホームに戻る</button>
+        </div>
+    </form>
+
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
+
+
+

@@ -22,7 +22,7 @@ $(function () {
         todayHighlight: true
     });
 
-    // jQueryのDateTimePicker
-    $.datetimepicker.setLocale('ja');
-    $('.jqdatetimepicker').datetimepicker();
+    //// jQueryのDateTimePicker
+    //$.datetimepicker.setLocale('ja');
+    //$('.jqdatetimepicker').datetimepicker();
 });
