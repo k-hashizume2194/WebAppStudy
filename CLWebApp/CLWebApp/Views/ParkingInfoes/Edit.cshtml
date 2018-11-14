@@ -1,0 +1,51 @@
+﻿@model CLWebApp.Models.ParkingInfo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>ParkingInfo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ParkingName" class="control-label"></label>
+                <input asp-for="ParkingName" class="form-control" />
+                <span asp-validation-for="ParkingName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeRate" class="control-label"></label>
+                <input asp-for="TimeRate" class="form-control" />
+                <span asp-validation-for="TimeRate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fee" class="control-label"></label>
+                <input asp-for="Fee" class="form-control" />
+                <span asp-validation-for="Fee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxFee" class="control-label"></label>
+                <input asp-for="MaxFee" class="form-control" />
+                <span asp-validation-for="MaxFee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

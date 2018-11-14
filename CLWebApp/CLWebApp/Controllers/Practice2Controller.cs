@@ -74,6 +74,11 @@ namespace CLWebApp.Controllers
                 string defeatString = model.Defeat;
                 string drawString = model.Draw;
 
+                double victorydouble = double.Parse(model.Victory);
+                double defeatdouble = double.Parse(model.Defeat);
+                double drawdouble = double.Parse(model.Draw);
+
+
                 /////1.給油量の入力チェックを行う
                 //// 入力チェック結果を取得
                 string message = _service.InputCheck(victoryString,defeatString,drawString);
@@ -84,15 +89,20 @@ namespace CLWebApp.Controllers
                 }
                 else
                 {
-                    // 打数がゼロの場合、"-" を表示
+                    // 勝利数がゼロの場合、".000" を表示
                     if ("0".Equals(victoryString))
                     {
                         model.Winning = ".000";
                     }
+                    // 勝利数、敗戦数、引き分け数がゼロの場合、"-" を表示
+                    if(victorydouble == 0 && defeatdouble ==0 && defeatdouble == 0)
+                    {
+                        model.Winning = "-";
+                    }
                     else
                     {
-                        double victorydouble = double.Parse(model.Victory);
-                        double defeatdouble = double.Parse(model.Defeat);
+                        //double victorydouble = double.Parse(model.Victory);
+                        //double defeatdouble = double.Parse(model.Defeat);
                         double winningDouble = _service.WinPercentagealcalc(victorydouble, defeatdouble);
 
                         //// 計算結果をテキストボックスにセット

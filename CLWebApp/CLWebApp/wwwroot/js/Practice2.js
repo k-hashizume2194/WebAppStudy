@@ -3,13 +3,18 @@
 $(function () {
     //$('#calcBtn').click(function () {
     var WinningVal = $('#Winning').val();
-    var WinningNum = Number(WinningVal);
+    if (WinningVal == ".000")
+    {
+        $("#Winning").css('background-color', '#6495ED');
+        $("#Winning").css('color', '#770000');
+    }
 
+    var WinningNum = Number(WinningVal);
     if (WinningNum == "")
     {
         return;
     }
-    if (WinningNum <= 0.499)
+    if (WinningNum <= 0.499 || WinningNum == 0.000)
     {
         $("#Winning").css('background-color', '#6495ED');
         $("#Winning").css('color', '#770000');
