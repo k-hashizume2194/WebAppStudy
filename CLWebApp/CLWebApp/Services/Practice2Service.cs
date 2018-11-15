@@ -35,7 +35,7 @@ namespace CLWebApp.Services
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        public string InputCheck(string victory, string defeat, string draw)
+        public string InputCheck(string victory, string defeat)
         {
             /// 未入力チェック
             /// ※空白、ゼロの場合にエラーとする

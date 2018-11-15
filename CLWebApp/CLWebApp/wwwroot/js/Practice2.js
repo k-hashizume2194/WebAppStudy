@@ -1,7 +1,17 @@
 ﻿// Write your JavaScript code.
 // HTMLの読み込みが完了したら動く
 $(function () {
-    //$('#calcBtn').click(function () {
+    //var DrawVal = $('#Draw').val();
+    //var DrawNum = Number(DrawVal);
+
+    $('#Draw').blur(function () {
+        var DrawVal = $('#Draw').val();
+        if (DrawVal == "") {
+            $('#Draw').val(0)
+        }
+    });
+
+    
     var WinningVal = $('#Winning').val();
     if (WinningVal == ".000")
     {
@@ -19,5 +29,4 @@ $(function () {
         $("#Winning").css('background-color', '#6495ED');
         $("#Winning").css('color', '#770000');
     }
-    //});
 });
