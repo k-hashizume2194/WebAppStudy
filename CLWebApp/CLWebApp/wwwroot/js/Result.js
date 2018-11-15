@@ -6,13 +6,13 @@ $(function () {
 
     //18.5未満	
     if (yourbmiNum < 18.5) {
-        $('#diagnosis').val('痩せてます…しっかり食べて体重を増やしましょう。');
+        $('#diagnosis').val('痩せてます…\nしっかり食べて体重を増やしましょう。');
         // 18.5以上25未満	
     } else if (yourbmiNum >= 18.5 && yourbmiNum < 25) {
-        $('#diagnosis').val('健康です！！このまま健康的な生活を続けましょう。');
+        $('#diagnosis').val('健康です！！\nこのまま健康的な生活を続けましょう。');
         // 25以上
     } else if (yourbmiNum >= 25) {
-        $('#diagnosis').val('肥満です…食べすぎに注意してください。運動をお勧めします。');
+        $('#diagnosis').val('肥満です…\n食べすぎに注意してください。\n運動をお勧めします。');
     }
 
 

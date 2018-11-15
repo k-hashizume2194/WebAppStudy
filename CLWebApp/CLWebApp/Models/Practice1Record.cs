@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -17,8 +18,26 @@ namespace CLWebApp.Models
         public long Id { get; set; }
 
         /// <summary>
-        /// BMI
+        /// 身長
         /// </summary>
-        public DateTime Bmi { get; set; }
+        public double Height { get; set; }
+
+        /// <summary>
+        /// 体重
+        /// </summary>
+        public double Weight { get; set; }
+
+        /// <summary>
+        /// 記録ユーザー
+        /// </summary>
+        public virtual ApplicationUser User { get; set; }
+
+        /// <summary>
+        /// ユーザーId
+        /// </summary>
+        [NotMapped]
+        [DisplayName("ユーザーId")]
+        [Required(ErrorMessage = "ユーザーIdを選択してください")]
+        public Guid SelectUserId { get; set; }
     }
 }
