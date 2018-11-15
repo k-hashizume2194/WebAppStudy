@@ -18,6 +18,11 @@ namespace CLWebApp.Models
         public long Id { get; set; }
 
         /// <summary>
+        /// BMI計測日時
+        /// </summary>
+        public DateTime BmiDate { get; set; }
+
+        /// <summary>
         /// 身長
         /// </summary>
         public double Height { get; set; }
