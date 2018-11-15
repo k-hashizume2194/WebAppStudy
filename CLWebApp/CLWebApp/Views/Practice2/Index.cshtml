@@ -18,17 +18,17 @@
         @*<input type="hidden" asp-for="btnCalculationEnabled" />*@
         <div class="form-group form-inline col-md-12">
             <label asp-for="Victory" class="col-md-2 text-right"></label>
-            <input asp-for="Victory" class="form-control col-md-3" maxlength="8" style="ime-mode: disabled"/>
+            <input asp-for="Victory" class="form-control col-md-3" maxlength="8" style="ime-mode: disabled" />
             <span asp-validation-for="Victory" class="text-danger col-md-7"></span>
         </div>
         <div class="form-group form-inline col-md-12">
             <label asp-for="Defeat" class="col-md-2 text-right"></label>
-            <input asp-for="Defeat" class="form-control col-md-3" maxlength="8" style="ime-mode: disabled"/>
+            <input asp-for="Defeat" class="form-control col-md-3" maxlength="8" style="ime-mode: disabled" />
             <span asp-validation-for="Defeat" class="text-danger col-md-7"></span>
         </div>
         <div class="form-group form-inline col-md-12">
             <label asp-for="Draw" class="col-md-2 text-right"></label>
-            <input asp-for="Draw" class="form-control col-md-3" maxlength="8" style="ime-mode: disabled"/>
+            <input asp-for="Draw" class="form-control col-md-3" maxlength="8" style="ime-mode: disabled" />
             <span asp-validation-for="Draw" class="text-danger col-md-7"></span>
         </div>
         <div class="row">
@@ -42,6 +42,13 @@
         <label asp-for="Winning" class="col-md-2 text-right"></label>
         <input asp-for="Winning" class="form-control col-md-3" readonly />
     </div>
+
+    <form asp-action="Index" method="get">
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-sm btn-info glyphicon glyphicon-bold">打率計算アプリ</button>
+        </div>
+    </form>
+
 
     <form asp-controller="Home" asp-action="Index">
         <div class="col-md-offset-5">

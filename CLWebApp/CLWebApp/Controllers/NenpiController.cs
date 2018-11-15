@@ -59,10 +59,10 @@ namespace CLWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-				// POST後の画面再描画のため状態をクリア
-				ModelState.Clear();
+                // POST後の画面再描画のため状態をクリア
+                ModelState.Clear();
 
-				string oiling = model.boxOilingQuantity;
+                string oiling = model.boxOilingQuantity;
                 string mileageVal = model.thisMileage;
 
                 /////1.給油量の入力チェックを行う
@@ -75,9 +75,9 @@ namespace CLWebApp.Controllers
                 }
                 else
                 {
-					/////2-1.燃費計算
-					/////区間燃費 ＝ 区間距離 / 給油量
-					double oilingdouble = double.Parse(model.boxOilingQuantity);
+                    /////2-1.燃費計算
+                    /////区間燃費 ＝ 区間距離 / 給油量
+                    double oilingdouble = double.Parse(model.boxOilingQuantity);
                     double valThisMileage = double.Parse(model.currentMileage);
                     double nenpi = _service.Culcnenpi(oilingdouble, valThisMileage);
 
@@ -86,22 +86,70 @@ namespace CLWebApp.Controllers
 
                     /////4.「クリア」「記録」「終了」ボタン以外の入力部品を変更不可状態にする。   
                     model.isCalculated = true;
-				}
+                }
             }
 
-			return View("Index", model);
+            return View("Index", model);
         }
 
+        // TODO:   
         /// <summary>
         /// 記録処理
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
+        //[HttpPost]
+        //public IActionResult Record(NenpiViewModel viewModel)
+        //{
+        //    // TODO:処理の実装は別課題で実施
+        //    return View(viewModel);
+        //}
+
+
+
+        /// <summary>
+        /// 記録ボタン押下後、DB処理
+        /// </summary>
+        /// <param name="areaOrDivision"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Record(NenpiViewModel viewModel)
         {
-            // TODO:処理の実装は別課題で実施
-            return View(viewModel);
+            if (ModelState.IsValid)
+            {
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        // ログイン中のユーザー情報
+                        string userName = User.Identity.Name;
+                        var user = _context.Users.Where(p => p.UserName.Equals(userName)).First();
+
+                        // 追加する燃費レコードのモデルを作成
+                        NenpiRecord model = new NenpiRecord();
+                        model.RefuelDate = DateTime.Parse(viewModel.dataTimePicker);
+                        model.Mileage = double.Parse(viewModel.currentMileage);
+                        model.TripMileage = double.Parse(viewModel.thisMileage);
+                        model.FuelCost = Double.Parse(viewModel.fuelConsumption);
+                        model.User = user;
+
+                        // コンテキストに追加
+                        _context.Add(model);
+                        _context.SaveChanges();
+                        transaction.Commit();
+
+                        return RedirectToAction("Index");
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        //_context.RevertChanges();
+                        ModelState.AddModelError(string.Empty, "エラーが発生しました。");
+                    }
+                }
+            }
+
+            return View("Index", viewModel);
         }
     }
 }

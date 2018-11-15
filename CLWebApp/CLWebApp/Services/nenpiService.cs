@@ -72,13 +72,14 @@ namespace CLWebApp.Services
             // 給油日が一番新しい自分のレコードを取得
             var nenpiRecord = _context.NenpiRecords
                 .OrderByDescending(p => p.RefuelDate)
+                .ThenByDescending(p => p.Mileage)
                 .Where(p => p.User.Id == loginUser.Id)
                 .FirstOrDefault();
 
             if (nenpiRecord != null)
             {
                 //燃費記録用テーブルから給油時走行距離(mileage)を取得できた場合、"pastMileageStr"に代入                
-                pastMileageStr = nenpiRecord.TripMileage.ToString();
+                pastMileageStr = nenpiRecord.Mileage.ToString();
             }
             else
             {
