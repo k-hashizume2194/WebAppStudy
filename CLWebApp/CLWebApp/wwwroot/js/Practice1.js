@@ -39,26 +39,55 @@ $(function () {
         }
     });
 
-    //計算後、入力を制御する関数
+    // ひと画面でボタンを切り替える
     $('.submit_button').on('click', function () {
         // 対象ボタンの親のForm取得
         var form = $(this).parents('form');
-        // ①isCalculatedの値をとる
-        var hiddenVal = $('#isCalculated').val();
-        // 文字列のboolean判定
-        var isnotCalculatedVal = hiddenVal.toLowerCase() === "false";
-        // ②①の値をもとに区間燃費が未入力の場合、アラートを出す
-        if (isnotCalculatedVal) {
-            alert('記録処理はBMIの算出後に実行してください');
-            return;
-        }
-        var result = window.confirm('記録処理を実行します。よろしいですか？');
-        if (!result) 
-        {
-            return;
+        // data属性(-action)から値を取得してクリックしたもののactionに書き換え
+        form.attr('action', $(this).data('action'));
+        // data属性(-btn)から値を取得してifで切り替え
+        // 記録をクリックしたときはconfirm、計算をクリックしたときはそのまま
+        var btn = $(this).data('btn');
+        if (btn == "recBtn") {
+            // ①isCalculatedの値をとる
+            var hiddenVal = $('#isCalculated').val();
+            // 文字列のboolean判定
+            var isnotCalculatedVal = hiddenVal.toLowerCase() === "false";
+            // ②①の値をもとにBMI計算をしてなければ、アラートを出す
+            if (isnotCalculatedVal) {
+                alert('記録処理はBMIの算出後に実行してください');
+                return;
+            }
+            // 区間燃費が表示されている場合
+            // 記録ボタンの場合
+            var result = window.confirm('記録処理を実行します。よろしいですか？');
+            if (!result) {
+                return;
+            }
         }
         form.submit();
     });       
+
+    ////計算後、入力を制御する関数
+    //$('.submit_button').on('click', function () {
+    //    // 対象ボタンの親のForm取得
+    //    var form = $(this).parents('form');
+    //    // ①isCalculatedの値をとる
+    //    var hiddenVal = $('#isCalculated').val();
+    //    // 文字列のboolean判定
+    //    var isnotCalculatedVal = hiddenVal.toLowerCase() === "false";
+    //    // ②①の値をもとに区間燃費が未入力の場合、アラートを出す
+    //    if (isnotCalculatedVal) {
+    //        alert('記録処理はBMIの算出後に実行してください');
+    //        return;
+    //    }
+    //    var result = window.confirm('記録処理を実行します。よろしいですか？');
+    //    if (!result) 
+    //    {
+    //        return;
+    //    }
+    //    form.submit();
+    //});       
 
     ////すぐにダイアログが開かないようにautoOpen:falseを指定
     //$("#dialog").dialog({ autoOpen: false });

@@ -13,7 +13,7 @@
     </div>
 </form>
 
-<form asp-action="Calc" method="post">
+<form method="post">
     <input type="hidden" asp-for="btnCalculationEnabled" />
     <div class="form-group form-inline col-md-12">
         <label asp-for="measuringdate" class="col-md-2 text-right"></label>
@@ -31,11 +31,11 @@
         <span asp-validation-for="weight" class="text-danger"></span>
     </div>
     <div class="form-group form-inline col-md-12">
-        <button type="submit" class="btn btn-success btn-md col-md-offset-2 col-md-3" id="calcBtn" onclick="return confirm('計算処理を実行します。よろしいですか？');">計算</button>
+        <button type="button" class="submit_button btn btn-success btn-md col-md-offset-2 col-md-3" id="calcBtn" data-action="@Url.Action("Calc","Practice1")" data-btn="calcBtn");">計算</button>
     </div>
-</form>
+@*</form>
 
-<form asp-action="Record" method="post">
+<form asp-action="Record" method="post">*@
     <input type="hidden" asp-for="isCalculated" />
     <div class="form-group form-inline col-md-12">
         <label asp-for="bmi" class="col-md-2 text-right"></label>
@@ -45,9 +45,6 @@
         <button type="button" class="submit_button btn btn-danger" id="recBtn" data-action="@Url.Action("Record","Practice1")" data-btn="recBtn">記録</button>
     </div>
 </form>
-
-@*<button id="opener">診断結果</button>
-<div id="dialog" title="ダイアログのタイトル">結果</div>*@
 
 <form asp-action="Result" method="post">
     <input type="hidden" asp-for="bmi" />
