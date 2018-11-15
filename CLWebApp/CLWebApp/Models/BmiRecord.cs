@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CLWebApp.Models
 {
     [Table("BmiRecords")]
-    public class Practice1Record
+    public class BmiRecord
     {
         /// <summary>
         /// ID
@@ -26,6 +26,11 @@ namespace CLWebApp.Models
         /// 体重
         /// </summary>
         public double Weight { get; set; }
+
+        /// <summary>
+        /// BMI
+        /// </summary>
+        public double Bmi { get; set; }
 
         /// <summary>
         /// 記録ユーザー
