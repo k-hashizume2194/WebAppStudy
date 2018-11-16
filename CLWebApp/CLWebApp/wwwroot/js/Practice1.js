@@ -2,20 +2,11 @@
     // HTMLの読み込みが完了したら動く
 $(function () {
 
-
-
     // btnCalculationEnabledがfalseなら計算ボタンをdisabledにする
     btnCalcChange();
 
     // isCalclatedがfalseなら身長、体重をdisabledにする
     CalculatedChange();
-
-     //$('#calcBtn').on('click', function () {
-     //    var result = window.confirm('計算処理を実行します。よろしいですか？');
-     //    if (!result) {
-     //        return;
-     //    }
-     //});
 
     //計算ボタンの押印を制御する関数
     $("#weight, #height").on('change', function () {
@@ -32,10 +23,19 @@ $(function () {
             // 処理終了
             return;
         }
+
+        // 指定フォームのvalidate実行
+        var formResult = $(this).parents('form').valid();
+        if (!formResult) {
+            // エラーがあるので処理終了
+            return;
+        }
         else {
-            // 計算ボタンをクリック可能にする
-            $('#calcBtn').prop('disabled', false);
-            $('#calcBtn').focus();
+
+      
+        // 計算ボタンをクリック可能にする
+        $('#calcBtn').prop('disabled', false);
+        $('#calcBtn').focus();
         }
     });
 
@@ -66,36 +66,9 @@ $(function () {
             }
         }
         form.submit();
-    });       
+    });         
 
-    ////計算後、入力を制御する関数
-    //$('.submit_button').on('click', function () {
-    //    // 対象ボタンの親のForm取得
-    //    var form = $(this).parents('form');
-    //    // ①isCalculatedの値をとる
-    //    var hiddenVal = $('#isCalculated').val();
-    //    // 文字列のboolean判定
-    //    var isnotCalculatedVal = hiddenVal.toLowerCase() === "false";
-    //    // ②①の値をもとに区間燃費が未入力の場合、アラートを出す
-    //    if (isnotCalculatedVal) {
-    //        alert('記録処理はBMIの算出後に実行してください');
-    //        return;
-    //    }
-    //    var result = window.confirm('記録処理を実行します。よろしいですか？');
-    //    if (!result) 
-    //    {
-    //        return;
-    //    }
-    //    form.submit();
-    //});       
-
-    ////すぐにダイアログが開かないようにautoOpen:falseを指定
-    //$("#dialog").dialog({ autoOpen: false });
-    ////ボタンがクリックされたらダイアログを開く
-    //$("#opener").click(function () {
-    //    $("#dialog").dialog("open");
-    //});
-
+    // CalculatedChange(); より後に記述することによりカレンダーのclass外しを有効にする
     $.datetimepicker.setLocale('ja');
     $('.jqdatetimepicker').datetimepicker();
 });

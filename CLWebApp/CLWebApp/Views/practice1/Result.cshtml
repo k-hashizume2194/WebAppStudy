@@ -16,21 +16,21 @@
     <textarea asp-for="diagnosis" class="form-control col-md-3" maxlength="6" style ="background-color:#ffffff;" readonly></textarea>
 </div>
 
-    <form asp-controller="Practice1" asp-action="Index">
-        <div class="col-md-offset-5">
-            <button type="submit" class="btn btn-primary">BMI計算に戻る</button>
-        </div>
-    </form>
+<form asp-controller="Practice1" asp-action="Index">
+    <div class="col-md-offset-5">
+        <button type="submit" class="btn btn-primary">BMI計算に戻る</button>
+    </div>
+</form>
 
-    <form asp-controller="Home" asp-action="Index">
-        <div class="col-md-offset-5">
-            <button type="submit" class="btn btn-primary">ホームに戻る</button>
-        </div>
-    </form>
+<form asp-controller="Home" asp-action="Index">
+    <div class="col-md-offset-5">
+        <button type="submit" class="btn btn-primary">ホームに戻る</button>
+    </div>
+</form>
 
-    @section Scripts {
-        @await Html.PartialAsync("_ValidationScriptsPartial")
-    }
-    <script src="~/js/Result.js"></script>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+<script src="~/js/Result.js"></script>
 
 

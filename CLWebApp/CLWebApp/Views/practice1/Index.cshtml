@@ -33,9 +33,6 @@
     <div class="form-group form-inline col-md-12">
         <button type="button" class="submit_button btn btn-success btn-md col-md-offset-2 col-md-3" id="calcBtn" data-action="@Url.Action("Calc","Practice1")" data-btn="calcBtn");">計算</button>
     </div>
-@*</form>
-
-<form asp-action="Record" method="post">*@
     <input type="hidden" asp-for="isCalculated" />
     <div class="form-group form-inline col-md-12">
         <label asp-for="bmi" class="col-md-2 text-right"></label>
@@ -51,13 +48,13 @@
     <button type="submit" class="btn btn-info btn-md col-md-offset-2 col-md-3" id="ResBtn">診断結果</button>
 </form>
 
-    <form asp-controller="Home" asp-action="Index">
-        <div class="col-md-offset-5">
-            <button type="submit" class="btn btn-primary">ホームに戻る</button>
-        </div>
-    </form>
+<form asp-controller="Home" asp-action="Index">
+    <div class="col-md-offset-5">
+        <button type="submit" class="btn btn-primary">ホームに戻る</button>
+    </div>
+</form>
 
-    @section Scripts {
-        @await Html.PartialAsync("_ValidationScriptsPartial")
-    }
-    <script src="~/js/Practice1.js"></script>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+<script src="~/js/Practice1.js"></script>

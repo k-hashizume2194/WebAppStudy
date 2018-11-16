@@ -11,6 +11,7 @@ namespace CLWebApp.Models
     [Table("BmiRecords")]
     public class BmiRecord
     {
+
         /// <summary>
         /// ID
         /// </summary>
@@ -49,5 +50,6 @@ namespace CLWebApp.Models
         [DisplayName("ユーザーId")]
         [Required(ErrorMessage = "ユーザーIdを選択してください")]
         public Guid SelectUserId { get; set; }
+
     }
 }

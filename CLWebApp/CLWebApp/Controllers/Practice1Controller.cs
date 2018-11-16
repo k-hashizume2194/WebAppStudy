@@ -43,32 +43,22 @@ namespace CLWebApp.Controllers
         public IActionResult Calc(Practice1ViewModel model)
         {
             // POST後の画面再描画のため状態をクリア
-            // TODO:if (ModelState.IsValid) で囲む
-            ModelState.Clear();
+            if (ModelState.IsValid)
+            {
+                ModelState.Clear();
 
-            double heightDouble = double.Parse(model.height);
-            double weightDouble = double.Parse(model.weight);
-            double bmi = _service.CalcBmi(heightDouble, weightDouble);
+                double heightDouble = double.Parse(model.height);
+                double weightDouble = double.Parse(model.weight);
+                double bmi = _service.CalcBmi(heightDouble, weightDouble);
 
-            model.bmi = bmi.ToString();
+                model.bmi = bmi.ToString();
 
-            model.btnCalculationEnabled = true;
-            model.isCalculated = true;
+                model.btnCalculationEnabled = true;
+                model.isCalculated = true;
 
+            }
             return View("Index", model);
-
         }
-        /// <summary>
-        /// 記録処理
-        /// </summary>
-        /// <param name="viewModel"></param>
-        /// <returns></returns>
-        //[HttpPost]
-        //public IActionResult Record(Practice1ViewModel viewModel)
-        //{
-        //    // TODO:処理の実装
-        //    return View(viewModel);
-        //}
 
 
         [HttpPost]
@@ -84,10 +74,14 @@ namespace CLWebApp.Controllers
                     BmiRecord model = new BmiRecord();
 
                         // 記録処理を記述              
-                        // TODO ユーザー情報は後で
-
-                        //areaOrDivision.Id = Guid.NewGuid();
+                        // ユーザー情報をとる
+                        string userName = User.Identity.Name;
+                        var user = _context.Users.Where(p => p.UserName.Equals(userName)).First();
                         // viewModelからModelに値を渡す
+                        model.User = user;
+                        model.BmiDate = DateTime.Parse(viewModel.measuringdate);
+                        model.Height = double.Parse(viewModel.height);
+                        model.Weight = double.Parse(viewModel.weight);
                         model.Bmi = double.Parse(viewModel.bmi);
 
                         // 引数に指定したエンティティをデータベースに追加
@@ -106,12 +100,9 @@ namespace CLWebApp.Controllers
                     {
                         // データベースの更新内容が無効
                         transaction.Rollback();
-                        //_context.RevertChanges();
 
                         //上部にエラーを赤文字で表示
-                        ModelState.AddModelError(string.Empty, "エラーが発生しました。");
-                        
-                        return View("Index");
+                        ModelState.AddModelError(string.Empty, "エラーが発生しました。");                      
                     }
                 }
             }
