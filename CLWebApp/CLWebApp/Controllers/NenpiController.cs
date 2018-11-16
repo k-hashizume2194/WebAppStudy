@@ -92,23 +92,8 @@ namespace CLWebApp.Controllers
             return View("Index", model);
         }
 
-        // TODO:   
         /// <summary>
         /// 記録処理
-        /// </summary>
-        /// <param name="viewModel"></param>
-        /// <returns></returns>
-        //[HttpPost]
-        //public IActionResult Record(NenpiViewModel viewModel)
-        //{
-        //    // TODO:処理の実装は別課題で実施
-        //    return View(viewModel);
-        //}
-
-
-
-        /// <summary>
-        /// 記録ボタン押下後、DB処理
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
