@@ -109,7 +109,6 @@ namespace CLWebApp.Controllers
                         {
                             //// 計算結果をテキストボックスにセット
                             model.Winning = winningDouble.ToString("F3");
-
                         }
                     }
                 }
@@ -118,13 +117,11 @@ namespace CLWebApp.Controllers
             return View("Winning", model);
         }
 
-
         /// <summary>
         /// 打率計算アプリに移動
         /// </summary>
-        /// <param name=""></param>
+        /// <param name="viewModel"></param>
         /// <returns></returns>
-        [HttpPost]
         public IActionResult AverageApp(AverageViewModel viewModel)
         {
             return View(viewModel);
