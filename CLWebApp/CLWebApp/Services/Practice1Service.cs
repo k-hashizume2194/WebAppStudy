@@ -27,8 +27,7 @@ namespace CLWebApp.Services
         /// <returns></returns>
         public double CalcBmi(double heightDouble, double weightDouble)
         {
-            double bmiDouble = (weightDouble / (heightDouble * heightDouble));
-            //return (bmiDouble);
+            double bmiDouble = weightDouble / (heightDouble * heightDouble);
             return Math.Round(bmiDouble, 1, MidpointRounding.AwayFromZero);
         }
     }

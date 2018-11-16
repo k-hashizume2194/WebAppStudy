@@ -24,19 +24,19 @@ $(function () {
             return;
         }
 
-        // 指定フォームのvalidate実行
-        var formResult = $(this).parents('form').valid();
-        if (!formResult) {
-            // エラーがあるので処理終了
-            return;
-        }
-        else {
+        // TODO:数字以外を入力したときに計算ボタンを有効にしない処理
 
-      
+        //// 指定フォームのvalidate実行
+        //var formResult = $(this).parents('form').valid();
+        //if (!formResult) {
+        //    // エラーがあるので処理終了
+        //    return;
+        //}
+
         // 計算ボタンをクリック可能にする
         $('#calcBtn').prop('disabled', false);
         $('#calcBtn').focus();
-        }
+        
     });
 
     // ひと画面でボタンを切り替える
@@ -68,7 +68,7 @@ $(function () {
         form.submit();
     });         
 
-    // CalculatedChange(); より後に記述することによりカレンダーのclass外しを有効にする
+    // CalculatedChange(); より後に記述することによってカレンダーのclass外しを有効にする
     $.datetimepicker.setLocale('ja');
     $('.jqdatetimepicker').datetimepicker();
 });

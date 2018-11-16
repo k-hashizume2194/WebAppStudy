@@ -6,6 +6,12 @@
 
 <h2>@ViewData["Title"]</h2>
 
+<form asp-controller="Practice1" asp-action="Bmi">
+    <div class="form-group col-md-offset-5">
+        <button type="submit" class="btn btn-default rounded-0">BMI計算に戻る</button>
+    </div>
+</form>
+
 <div class="form-group form-inline col-md-12">
     <label asp-for="yourbmi" class="col-md-2 text-right"></label>
     <input asp-for="yourbmi" class="form-control col-md-3" maxlength="6" style ="background-color:#ffffff;" readonly />
@@ -16,14 +22,8 @@
     <textarea asp-for="diagnosis" class="form-control col-md-3" maxlength="6" style ="background-color:#ffffff;" readonly></textarea>
 </div>
 
-<form asp-controller="Practice1" asp-action="Index">
-    <div class="col-md-offset-5">
-        <button type="submit" class="btn btn-primary">BMI計算に戻る</button>
-    </div>
-</form>
-
 <form asp-controller="Home" asp-action="Index">
-    <div class="col-md-offset-5">
+    <div class="form-group col-md-offset-5">
         <button type="submit" class="btn btn-primary">ホームに戻る</button>
     </div>
 </form>

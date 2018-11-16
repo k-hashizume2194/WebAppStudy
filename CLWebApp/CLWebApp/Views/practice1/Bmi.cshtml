@@ -1,0 +1,69 @@
+﻿@using CLWebApp.Models.ViewModels
+@model Practice1ViewModel
+@{
+    ViewData["Title"] = "BMI計算";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form asp-action="Bmi" method="get">
+        <div class="col-md-offset-5">
+            <button type="submit" class="btn btn-warning">クリア</button>
+        </div>
+    </form>
+
+    <form method="post">
+        <input type="hidden" asp-for="btnCalculationEnabled" />
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="measuringdate" class="col-md-2 text-right"></label>
+            <input asp-for="measuringdate" type="text" class="jqdatetimepicker">
+            <span asp-validation-for="measuringdate" class="text-danger"></span>
+        </div>
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="height" class="col-md-2 text-right"></label>
+            <input asp-for="height" />
+            <span asp-validation-for="height" class="text-danger"></span>
+        </div>
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="weight" class="col-md-2 text-right"></label>
+            <input asp-for="weight" />
+            <span asp-validation-for="weight" class="text-danger"></span>
+        </div>
+        <div class="form-group form-inline col-md-12">
+            <button type="button" class="submit_button btn btn-success btn-md col-md-offset-2 col-md-2" data-action="@Url.Action("Calc","Practice1")" data-btn="calcBtn" );">計算</button>
+        </div>
+        <input type="hidden" asp-for="isCalculated" />
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="bmi" class="col-md-2 text-right"></label>
+            <input asp-for="bmi" readonly />
+        </div>
+        <div class="form-group">
+            <button type="button" class="submit_button btn btn-danger" data-action="@Url.Action("Record","Practice1")" data-btn="recBtn">記録</button>
+        </div>
+    </form>
+
+    <form asp-action="Result" method="post">
+        <input type="hidden" asp-for="bmi" />
+        <div class="form-group form-inline col-md-12">
+            <button type="submit" class="btn btn-info btn-md col-md-offset-2 col-md-2" id="ResBtn">診断結果</button>
+        </div>
+    </form>
+
+    <form asp-controller="Practice1" asp-action="Index">
+        <div class="form-group col-md-offset-5">
+            <button type="submit" class="btn btn-default">橋詰練習に戻る</button>
+        </div>
+    </form>
+
+    <form asp-controller="Home" asp-action="Index">
+        <div class="form-group col-md-offset-5">
+            <button type="submit" class="btn btn-primary">ホームに戻る</button>
+        </div>
+    </form>
+</div>
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
+    <script src="~/js/Practice1.js"></script>

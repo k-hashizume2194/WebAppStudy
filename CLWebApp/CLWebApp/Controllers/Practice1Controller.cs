@@ -15,7 +15,6 @@ namespace CLWebApp.Controllers
         private readonly ApplicationDbContext _context;
         private Practice1Service _service;
 
-
         /// <summary>
         /// コンストラクター
         /// </summary>
@@ -25,14 +24,26 @@ namespace CLWebApp.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Indexページ
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// BMI計算ページ
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Bmi()
         {
             Practice1ViewModel model = new Practice1ViewModel();
             _service.Clear(model);
 
             return View(model);
         }
-
 
         /// <summary>
         /// 計算処理
@@ -55,9 +66,8 @@ namespace CLWebApp.Controllers
 
                 model.btnCalculationEnabled = true;
                 model.isCalculated = true;
-
             }
-            return View("Index", model);
+            return View("Bmi", model);
         }
 
 
@@ -106,7 +116,7 @@ namespace CLWebApp.Controllers
                     }
                 }
             }
-            return View("Index", viewModel);
+            return View("Bmi", viewModel);
         }
 
 
