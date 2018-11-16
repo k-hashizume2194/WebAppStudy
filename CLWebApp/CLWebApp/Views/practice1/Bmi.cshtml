@@ -44,6 +44,12 @@
         </div>
     </form>
 
+    <form asp-controller="Practice1" asp-action="BmiList">
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">記録一覧</button>
+        </div>
+    </form>
+
     <form asp-action="Result" method="post">
         <input type="hidden" asp-for="bmi" />
         <div class="form-group form-inline col-md-12">
@@ -62,6 +68,7 @@
             <button type="submit" class="btn btn-primary">ホームに戻る</button>
         </div>
     </form>
+
 </div>
     @section Scripts {
         @await Html.PartialAsync("_ValidationScriptsPartial")

@@ -7,6 +7,7 @@ using CLWebApp.Models;
 using CLWebApp.Models.ViewModels;
 using CLWebApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CLWebApp.Controllers
 {
@@ -135,5 +136,21 @@ namespace CLWebApp.Controllers
             // 値を渡す
             return View(resultViewModel);
         }
+
+        ///// <summary>
+        ///// Indexページ
+        ///// </summary>
+        ///// <returns></returns>
+        //public IActionResult BmiList()
+        //{
+        //    return View();
+        //}
+
+        // GET: BmiRecords
+        public async Task<IActionResult> BmiList()
+        {
+            return View(await _context.BmiRecords.ToListAsync());
+        }
+
     }
 }
