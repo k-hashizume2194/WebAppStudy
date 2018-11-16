@@ -1,0 +1,77 @@
+﻿@using CLWebApp.Models.ViewModels
+@model Practice2ViewModel
+@{
+    ViewData["Title"] = "勝率計算アプリ";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form asp-action="Winning" method="get">
+        <div class="col-md-offset-5">
+            <button type="submit" class="btn btn-warning">クリア</button>
+        </div>
+    </form>
+
+    <form asp-action="Calc" method="post">
+        @*<input type="hidden" asp-for="btnCalculationEnabled" />*@
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="Victory" class="col-md-2 text-right"></label>
+            <input asp-for="Victory" class="form-control col-md-3" maxlength="8" style="ime-mode: disabled" />
+            <span asp-validation-for="Victory" class="text-danger col-md-7"></span>
+        </div>
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="Defeat" class="col-md-2 text-right"></label>
+            <input asp-for="Defeat" class="form-control col-md-3" maxlength="8" style="ime-mode: disabled" />
+            <span asp-validation-for="Defeat" class="text-danger col-md-7"></span>
+        </div>
+        <div class="form-group form-inline col-md-12">
+            <label asp-for="Draw" class="col-md-2 text-right"></label>
+            <input asp-for="Draw" class="form-control col-md-3" maxlength="8" style="ime-mode: disabled" />
+            <span asp-validation-for="Draw" class="text-danger col-md-7"></span>
+        </div>
+        <div class="row">
+            <div class="form-group form-inline col-md-12">
+                <button type="submit" id="calcBtn" class="btn btn-success btn-lg col-md-offset-2 col-md-3">計算</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="form-group form-inline col-md-12">
+        <label asp-for="Winning" class="col-md-2 text-right"></label>
+        <input asp-for="Winning" class="form-control col-md-3" readonly />
+    </div>
+    <div class="form-group form-inline col-md-12">
+        <form asp-controller="Average" asp-action="Index">
+            <div class="col-md-offset-5">
+                <button type="submit" class="btn btn-xs btn-info glyphicon glyphicon-bold">打率計算アプリ</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="form-group form-inline col-md-12">
+        <form asp-controller="Practice2" asp-action="Index">
+            <div class="col-md-offset-5">
+                <button type="submit" class="btn btn-xs btn-default">橋本Practiceに戻る</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="form-group form-inline col-md-12">
+        <form asp-controller="Home" asp-action="Index">
+            <div class="col-md-offset-5">
+                <button type="submit" class="btn btn-primary">ホームに戻る</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
+    <script src="~/js/Practice2.js"></script>
+
+
+

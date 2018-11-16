@@ -28,12 +28,18 @@ namespace CLWebApp.Controllers
 
         public IActionResult Index()
         {
+            return View();
+        }
+
+        public IActionResult Winning()
+        {
             Practice2ViewModel model = new Practice2ViewModel();
             // 画面初期化
             _service.Clear(model);
 
             return View(model);
         }
+
 
         // POST: Home/Index
         [HttpPost]
@@ -50,7 +56,7 @@ namespace CLWebApp.Controllers
                 else
                 {
                     // 正常の場合
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Winning");
                 }
             }
             return View(viewModel);
@@ -109,7 +115,7 @@ namespace CLWebApp.Controllers
                 }
             }
             ////// 計算結果をテキストボックスにセット
-            return View("Index", model);
+            return View("Winning", model);
         }
 
 
@@ -123,6 +129,5 @@ namespace CLWebApp.Controllers
         {
             return View(viewModel);
         }
-
     }
 }
