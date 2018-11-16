@@ -18,15 +18,22 @@ $(function () {
         $("#Winning").css('color', '#770000');
     }
 
-    // 勝率が".499"以下の時、勝率テキストボックス、文字の色を変更
     var WinningNum = Number(WinningVal);
+    // 勝率が"空白"の時は処理しない
     if (WinningNum == "")
     {
         return;
     }
-    if (WinningNum <= 0.499 || WinningNum == 0.000)
+    // 勝率が".499"以下の時、勝率テキストボックス、文字の色を変更
+    if (WinningNum <= 0.499)
     {
         $("#Winning").css('background-color', '#6495ED');
         $("#Winning").css('color', '#770000');
+    }
+    // 勝率が"1.000"の時、勝率テキストボックス、文字の色を変更
+    if (WinningNum == 1.000)
+    {
+        $("#Winning").css('background-color', '#FF6347');
+        //$("#Winning").css('color', '#770000');
     }
 });

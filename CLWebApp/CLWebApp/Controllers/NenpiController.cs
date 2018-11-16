@@ -110,7 +110,7 @@ namespace CLWebApp.Controllers
         /// <summary>
         /// 記録ボタン押下後、DB処理
         /// </summary>
-        /// <param name="areaOrDivision"></param>
+        /// <param name="viewModel"></param>
         /// <returns></returns>
         [HttpPost]
         public IActionResult Record(NenpiViewModel viewModel)
