@@ -17,7 +17,7 @@ $(function () {
         // data属性(-btn)から値を取得してifで切り替え
         // 記録をクリックしたときはconfirm、計算をクリックしたときはそのまま
         var btn = $(this).data('btn');
-        if (btn == "recBtn")
+        if (btn === "recBtn" || btn === "ajaxRecBtn")
         {
             // ①isCalculatedの値をとる
             var hiddenVal = $('#isCalculated').val();
@@ -36,7 +36,44 @@ $(function () {
                 return;
             }
         }
-        form.submit();
+        if (btn !== "ajaxRecBtn") {
+            // 対象ボタンの親のFormをsubmit
+            form.submit();
+        } else {
+            // ajax処理
+
+            // formの内容をシリアライズ(※要name属性)
+            var dataToPost = form.serialize();
+
+            $.ajax({
+                url: '/Nenpi/RecordAjax',
+                type: 'POST',
+                //data: {
+                //    'userid': $('#userid').val(),
+                //    'passward': $('#passward').val()
+                //}
+                data: dataToPost
+            })
+            // Ajaxリクエストが成功した時発動
+
+            //.done((data) => { ※アロー式">"を使用するとIE11でエラーとなる
+            .done(function (data) {
+                // メッセージを表示
+                alert(data.message);
+                if (data.status === "success") {
+                    // 処理成功の場合は画面を再表示
+                    location.href = '/Nenpi/Index';
+                }
+            })
+            // Ajaxリクエストが失敗した時発動
+            .fail(function (data) {
+                alert('Ajaxリクエストエラーが発生しました');
+            })
+            // Ajaxリクエストが成功・失敗どちらでも発動
+            .always(function (data) {
+            });
+        }
+        
     });       
 
     // 給油時走行距離のchangeイベントを定義
