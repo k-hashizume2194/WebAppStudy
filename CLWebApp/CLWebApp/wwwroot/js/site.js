@@ -15,7 +15,10 @@ $(function () {
         return false;
     });
 
-    $('.datepicker').datepicker({
+    // bootstrap-datepicker
+    var bootstrapDatepicker = $.fn.datepicker.noConflict();
+    $.fn.bootstrapDP = bootstrapDatepicker;
+    $('.datepicker').bootstrapDP({
         autoclose: 'true',
         format: 'yyyy/mm/dd',
         language: 'ja',
