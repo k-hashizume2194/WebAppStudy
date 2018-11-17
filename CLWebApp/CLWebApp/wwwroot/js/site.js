@@ -29,3 +29,27 @@ $(function () {
     //$.datetimepicker.setLocale('ja');
     //$('.jqdatetimepicker').datetimepicker();
 });
+
+$(window).load(function () {
+    // コンテンツ全体の読み込み完了
+    // Lading 画像を消す
+    removeLoading();
+});
+
+// ロード中gifを削除
+function removeLoading() {
+    $("#loading").remove();
+}
+
+// ロード中gifを画面中央に表示
+function dispLoading(msg) {
+    if (msg === undefined) {
+        msg = "";
+    }
+    // 画面表示メッセージ
+    var dispMsg = "<div class='loadingMsg'>" + msg + "</div>";
+    // ローディング画像が表示されていない場合のみ出力
+    if ($("#loading").length === 0) {
+        $("body").append("<div id='loading' style='z-index: 9999;'>" + dispMsg + "</div>");
+    }
+}

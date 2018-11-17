@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
         <link rel="stylesheet" href="~/lib/jquery-datetimepicker/jquery.datetimepicker.css">
         <link rel="stylesheet" href="~/css/site.css" />
+        <link href="~/css/custom.css" rel="stylesheet" />
         <script src="~/lib/jquery/dist/jquery.js"></script>
     </environment>
     <environment exclude="Development">
@@ -20,6 +21,14 @@
     </environment>
 </head>
 <body>
+    <script>
+        // ※site.jsで関数化しているが読み込み前のため
+        var dispMsg = "<div class='loadingMsg'>読み込み中…</div>";
+        // ローディング画像が表示されていない場合のみ出力
+        if ($("#loading").length === 0) {
+            $("body").append("<div id='loading'>" + dispMsg + "</div>");
+        }
+    </script>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">

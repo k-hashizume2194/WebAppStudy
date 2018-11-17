@@ -42,6 +42,9 @@ $(function () {
         } else {
             // ajax処理
 
+            // 処理前に Loading 画像を表示
+            dispLoading("処理中...");
+
             // formの内容をシリアライズ(※要name属性)
             var dataToPost = form.serialize();
 
@@ -71,6 +74,8 @@ $(function () {
             })
             // Ajaxリクエストが成功・失敗どちらでも発動
             .always(function (data) {
+                // Lading 画像を消す
+                removeLoading();
             });
         }
         
