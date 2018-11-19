@@ -17,7 +17,7 @@ namespace CLWebApp.Controllers
     /// 燃費計算画面コントローラー
     /// </summary>
     [Authorize]
-    public class NenpiController : Controller
+    public class NenpiController : CLBaseController
     {
         private readonly ApplicationDbContext _context;
         private NenpiService _service;
@@ -37,8 +37,7 @@ namespace CLWebApp.Controllers
         public IActionResult Index()
         {
             // ログイン中のユーザー情報
-            string userName = User.Identity.Name;
-            var user = _context.Users.Where(p => p.UserName.Equals(userName)).First();
+            var user = GetLoginUser(_context);
 
             NenpiViewModel model = new NenpiViewModel();
 
@@ -107,8 +106,7 @@ namespace CLWebApp.Controllers
                     try
                     {
                         // ログイン中のユーザー情報
-                        string userName = User.Identity.Name;
-                        var user = _context.Users.Where(p => p.UserName.Equals(userName)).First();
+                        var user = GetLoginUser(_context);
 
                         // 追加する燃費レコードのモデルを作成
                         NenpiRecord model = new NenpiRecord();
@@ -149,12 +147,11 @@ namespace CLWebApp.Controllers
 			{
 				try
 				{
-					// ログイン中のユーザー情報
-					string userName = User.Identity.Name;
-					var user = _context.Users.Where(p => p.UserName.Equals(userName)).First();
+                    // ログイン中のユーザー情報
+                    var user = GetLoginUser(_context);
 
-					// 追加する燃費レコードのモデルを作成
-					NenpiRecord model = new NenpiRecord();
+                    // 追加する燃費レコードのモデルを作成
+                    NenpiRecord model = new NenpiRecord();
 					model.RefuelDate = DateTime.Parse(viewModel.dataTimePicker);
 					model.Mileage = double.Parse(viewModel.currentMileage);
 					model.TripMileage = double.Parse(viewModel.thisMileage);
