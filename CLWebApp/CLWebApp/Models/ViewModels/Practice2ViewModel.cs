@@ -38,6 +38,10 @@ namespace CLWebApp.Models.ViewModels
         [Display(Name = "勝率：")]
         public string Winning { get; set; }
 
+        /// <summary>
+        /// 計算完了判定
+        /// </summary>
+        public bool isCalculated { get; set; }
 
     }
 }

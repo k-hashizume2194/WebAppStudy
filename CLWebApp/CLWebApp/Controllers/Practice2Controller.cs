@@ -119,15 +119,77 @@ namespace CLWebApp.Controllers
         }
 
 
+
+
+
         /// <summary>
-        /// 打率計算アプリに移動
+        /// 計算処理(Ajax)
         /// </summary>
-        /// <param name=""></param>
+        /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AverageApp(AverageViewModel viewModel)
+        public IActionResult CalcAjax(Practice2ViewModel model)
         {
-            return View(viewModel);
+            //if (ModelState.IsValid)
+            //{
+                string victoryString = model.Victory;
+                string defeatString = model.Defeat;
+                string drawString = model.Draw;
+            string winningStr = "";
+
+                double victorydouble = double.Parse(model.Victory);
+                double defeatdouble = double.Parse(model.Defeat);
+
+                //// 入力チェックを行う
+                //// 入力チェック結果を取得
+                string message = _service.InputCheck(victoryString, defeatString);
+                if (!string.IsNullOrWhiteSpace(message))
+                {
+                    // エラーの場合
+                    // ModelState.AddModelError(string.Empty, message);
+
+                    // 処理結果がエラーであることとexceptionメッセージをJsonで返却
+                    return Json(new
+                    {
+                        status = "Error",
+                        message = $"記録処理でエラーが発生しました\r\n({message})"
+                    });
+
+                }
+                else
+                {
+                    // 勝利数、敗戦数、引き分け数がゼロの場合、"-" を表示
+                    if (victorydouble == 0 && defeatdouble == 0 && defeatdouble == 0)
+                    {
+                        winningStr  = "-";
+                    }
+                    else
+                    {
+                        // 勝率を計算
+                        double winningDouble = _service.WinPercentagealcalc(victorydouble, defeatdouble);
+
+                        // 試合数があり、勝利数がゼロの場合、".000" を表示
+                        if (victorydouble == 0)
+                        {
+                            winningStr = ".000";
+                        }
+                        else
+                        {
+                            //// 計算結果をテキストボックスにセット
+                            winningStr = winningDouble.ToString("F3");
+
+                        }
+                    }
+            }
+        //}
+            ////// 計算結果をテキストボックスにセット
+            return Json(new
+            {
+                status = "success",
+                message = "計算処理が完了しました",
+                winning = winningStr
+            });
         }
+
     }
 }
