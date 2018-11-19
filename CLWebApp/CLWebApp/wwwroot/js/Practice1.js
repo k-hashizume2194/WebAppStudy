@@ -39,7 +39,35 @@ $(function () {
         
     });
 
-    // ひと画面でボタンを切り替える
+    //// ひと画面でボタンを切り替える(Ajax不使用)
+    //$('.submit_button').on('click', function () {
+    //    // 対象ボタンの親のForm取得
+    //    var form = $(this).parents('form');
+    //    // data属性(-action)から値を取得してクリックしたもののactionに書き換え
+    //    form.attr('action', $(this).data('action'));
+    //    // data属性(-btn)から値を取得してifで切り替え
+    //    // 記録をクリックしたときはconfirm、計算をクリックしたときはそのまま
+    //    var btn = $(this).data('btn');
+    //    if (btn == "recBtn") {
+    //        // ①isCalculatedの値をとる
+    //        var hiddenVal = $('#isCalculated').val();
+    //        // 文字列のboolean判定
+    //        var isnotCalculatedVal = hiddenVal.toLowerCase() === "false";
+    //        // ②①の値をもとにBMI計算をしてなければ、アラートを出す
+    //        if (isnotCalculatedVal) {
+    //            alert('記録処理はBMIの算出後に実行してください');
+    //            return;
+    //        }
+    //        // 記録ボタンの場合
+    //        var result = window.confirm('記録処理を実行します。よろしいですか？');
+    //        if (!result) {
+    //            return;
+    //        }
+    //    }
+    //    form.submit();
+    //});         
+
+    // ひと画面でボタンを切り替える(Ajax使用)
     $('.submit_button').on('click', function () {
         // 対象ボタンの親のForm取得
         var form = $(this).parents('form');
@@ -48,7 +76,8 @@ $(function () {
         // data属性(-btn)から値を取得してifで切り替え
         // 記録をクリックしたときはconfirm、計算をクリックしたときはそのまま
         var btn = $(this).data('btn');
-        if (btn == "recBtn") {
+        if (btn === "recBtn" || btn === "ajaxRecBtn")
+        {
             // ①isCalculatedの値をとる
             var hiddenVal = $('#isCalculated').val();
             // 文字列のboolean判定
@@ -58,14 +87,54 @@ $(function () {
                 alert('記録処理はBMIの算出後に実行してください');
                 return;
             }
-            // 区間燃費が表示されている場合
             // 記録ボタンの場合
             var result = window.confirm('記録処理を実行します。よろしいですか？');
             if (!result) {
                 return;
             }
         }
-        form.submit();
+        if (btn !== "ajaxRecBtn") {
+            // 対象ボタンの親のFormをsubmit
+            form.submit();
+        } else {
+            // ajax処理
+
+            // 処理前に Loading 画像を表示
+            dispLoading("処理中...");
+
+            // formの内容をシリアライズ(※要name属性)
+            var dataToPost = form.serialize();
+
+            $.ajax({
+                url: '/Practice1/RecordAjax',
+                type: 'POST',
+                //data: {
+                //    'userid': $('#userid').val(),
+                //    'passward': $('#passward').val()
+                //}
+                data: dataToPost
+            })
+                // Ajaxリクエストが成功した時発動
+
+                //.done((data) => { ※アロー式">"を使用するとIE11でエラーとなる
+                .done(function (data) {
+                    // メッセージを表示
+                    alert(data.message);
+                    if (data.status === "success") {
+                        // 処理成功の場合は画面を再表示
+                        location.href = '/Practice1/Bmi';
+                    }
+                })
+                // Ajaxリクエストが失敗した時発動
+                .fail(function (data) {
+                    alert('Ajaxリクエストエラーが発生しました');
+                })
+                // Ajaxリクエストが成功・失敗どちらでも発動
+                .always(function (data) {
+                    // Lading 画像を消す
+                    removeLoading();
+                });
+        }
     });         
 
     // CalculatedChange(); より後に記述することによってカレンダーのclass外しを有効にする

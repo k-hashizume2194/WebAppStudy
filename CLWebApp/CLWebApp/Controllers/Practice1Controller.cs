@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CLWebApp.Controllers
 {
-    public class Practice1Controller : Controller
+    public class Practice1Controller : CLBaseController
     {
         private readonly ApplicationDbContext _context;
         private Practice1Service _service;
@@ -25,14 +25,6 @@ namespace CLWebApp.Controllers
             _context = context;
         }
 
-        /// <summary>
-        /// Indexページ
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         /// <summary>
         /// BMI計算ページ
@@ -45,6 +37,17 @@ namespace CLWebApp.Controllers
 
             return View(model);
         }
+
+
+        /// <summary>
+        /// Indexページ
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Index()
+        {
+            return View();
+        }
+
 
         /// <summary>
         /// 計算処理
@@ -85,9 +88,10 @@ namespace CLWebApp.Controllers
                     BmiRecord model = new BmiRecord();
 
                         // 記録処理を記述              
-                        // ユーザー情報をとる
-                        string userName = User.Identity.Name;
-                        var user = _context.Users.Where(p => p.UserName.Equals(userName)).First();
+                        // ログイン中のユーザー情報をとる
+                        //string userName = User.Identity.Name;
+                        //var user = _context.Users.Where(p => p.UserName.Equals(userName)).First();
+                        var user = GetLoginUser(_context);
                         // viewModelからModelに値を渡す
                         model.User = user;
                         model.BmiDate = DateTime.Parse(viewModel.measuringdate);
@@ -104,8 +108,8 @@ namespace CLWebApp.Controllers
                         // データベースの更新内容が有効
                         transaction.Commit();
 
-                        // Indexに戻る
-                        return RedirectToAction(nameof(Index));
+                        // Bmiに戻る
+                        return RedirectToAction(nameof(Bmi));
                     }
                     catch (Exception ex)
                     {
@@ -120,6 +124,52 @@ namespace CLWebApp.Controllers
             return View("Bmi", viewModel);
         }
 
+        /// <summary>
+		/// 記録処理(Ajax)
+		/// </summary>
+		/// <param name="viewModel"></param>
+		/// <returns></returns>
+		[HttpPost]
+        public IActionResult RecordAjax(Practice1ViewModel viewModel)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    // ログイン中のユーザー情報
+                    var user = GetLoginUser(_context);
+
+                    // 追加する燃費レコードのモデルを作成
+                    BmiRecord model = new BmiRecord();
+                    model.User = user;
+                    model.BmiDate = DateTime.Parse(viewModel.measuringdate);
+                    model.Height = double.Parse(viewModel.height);
+                    model.Weight = double.Parse(viewModel.weight);
+                    model.Bmi = double.Parse(viewModel.bmi);
+
+                    // コンテキストに追加
+                    _context.Add(model);
+                    _context.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    // 処理結果がエラーであることとexceptionメッセージをJsonで返却
+                    return Json(new
+                    {
+                        status = "dbError",
+                        message = $"記録処理でエラーが発生しました\r\n({ex.Message})"
+                    });
+                }
+            }
+
+            // 処理結果が成功であることとメッセージをJsonで返却
+            return Json(new
+            {
+                status = "success",
+                message = "記録処理が完了しました"
+            });
+        }
 
         /// <summary>
         /// 診断結果
@@ -137,16 +187,12 @@ namespace CLWebApp.Controllers
             return View(resultViewModel);
         }
 
-        ///// <summary>
-        ///// Indexページ
-        ///// </summary>
-        ///// <returns></returns>
-        //public IActionResult BmiList()
-        //{
-        //    return View();
-        //}
 
         // GET: BmiRecords
+        /// <summary>
+        /// BMIリストページ
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> BmiList()
         {
             return View(await _context.BmiRecords.ToListAsync());
