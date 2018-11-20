@@ -119,9 +119,6 @@ namespace CLWebApp.Controllers
         }
 
 
-
-
-
         /// <summary>
         /// 計算処理(Ajax)
         /// </summary>
@@ -130,15 +127,10 @@ namespace CLWebApp.Controllers
         [HttpPost]
         public IActionResult CalcAjax(Practice2ViewModel model)
         {
-            //if (ModelState.IsValid)
-            //{
                 string victoryString = model.Victory;
                 string defeatString = model.Defeat;
                 string drawString = model.Draw;
-            string winningStr = "";
-
-                double victorydouble = double.Parse(model.Victory);
-                double defeatdouble = double.Parse(model.Defeat);
+                string winningStr = "";
 
                 //// 入力チェックを行う
                 //// 入力チェック結果を取得
@@ -152,12 +144,15 @@ namespace CLWebApp.Controllers
                     return Json(new
                     {
                         status = "Error",
-                        message = $"記録処理でエラーが発生しました\r\n({message})"
+                        message = "入力してください"
                     });
 
                 }
                 else
                 {
+                    double victorydouble = double.Parse(model.Victory);
+                    double defeatdouble = double.Parse(model.Defeat);
+
                     // 勝利数、敗戦数、引き分け数がゼロの場合、"-" を表示
                     if (victorydouble == 0 && defeatdouble == 0 && defeatdouble == 0)
                     {
@@ -177,11 +172,9 @@ namespace CLWebApp.Controllers
                         {
                             //// 計算結果をテキストボックスにセット
                             winningStr = winningDouble.ToString("F3");
-
                         }
                     }
             }
-        //}
             ////// 計算結果をテキストボックスにセット
             return Json(new
             {
@@ -191,5 +184,99 @@ namespace CLWebApp.Controllers
             });
         }
 
+
+        /// <summary>
+        /// 勝率判定処理(Ajax)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult WinAjax(Practice2ViewModel model)
+        {
+            string victoryString = model.Victory;
+            string defeatString = model.Defeat;
+            string drawString = model.Draw;
+            string winningStr = "";
+
+            //// 入力チェックを行う
+            //// 入力チェック結果を取得
+            string message = _service.InputCheck(victoryString, defeatString);
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                // 処理結果がエラーであることとexceptionメッセージをJsonで返却
+                return Json(new
+                {
+                    //status = "Error",
+                    message = "入力してください"
+                });
+            }
+            else
+            {
+                // 勝利数、敗戦数、引き分け数がゼロの場合、"-" を表示
+                double victorydouble = double.Parse(model.Victory);
+                double defeatdouble = double.Parse(model.Defeat);
+                if (victorydouble == 0 && defeatdouble == 0 && defeatdouble == 0)
+                {
+                    winningStr = "-";
+                    return Json(new
+                    {
+                        message = "試合数がありません",
+                        winning = winningStr
+                    });
+                }
+                else
+                {
+                    // 勝率を計算
+                    double winningDouble = _service.WinPercentagealcalc(victorydouble, defeatdouble);
+
+                    // 試合数があり、勝利数がゼロの場合
+                    if (victorydouble == 0)
+                    {
+                        winningStr = ".000";
+                        return Json(new
+                        {
+                            message = "まだ勝ちがありません",
+                            winning = winningStr
+                        });
+
+                    }
+                    else
+                    {
+                        //// 計算結果をテキストボックスにセット
+                        winningStr = winningDouble.ToString("F3");
+                        // 勝率5割未満の場合
+                        if(winningDouble < 0.500)
+                        return Json(new
+                        {
+                            message = "勝率5割以下です",
+                            winning = winningStr
+                        });
+                        // 勝率5割以上,7割未満
+                        if (winningDouble >=0.500 && winningDouble < 0.700)
+                            return Json(new
+                            {
+                                message = "良い成績です",
+                                winning = winningStr
+                            });
+                        // 勝率7割以上
+                        if (winningDouble >= 0.700)
+                            return Json(new
+                            {
+                                message = "すばらしい成績です",
+                                winning = winningStr
+                            });
+                    }
+                }
+            }
+            //}
+            ////// 計算結果をテキストボックスにセット
+
+
+            return Json(new
+            {
+                //message = "勝率判定",
+                winning = winningStr
+            });
+        }
     }
 }
