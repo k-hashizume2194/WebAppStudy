@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CLWebApp.Data;
+using CLWebApp.Models;
 using CLWebApp.Models.ViewModels;
 using CLWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -13,17 +15,19 @@ namespace CLWebApp.Controllers
     /// 勝率計算画面コントローラー
     /// </summary>
     [Authorize]
-    public class Practice2Controller : Controller
+    public class Practice2Controller : CLBaseController
     {
+        private readonly ApplicationDbContext _context;
         private Practice2Service _service;
 
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public Practice2Controller()
+        public Practice2Controller(ApplicationDbContext context)
         {
             _service = new Practice2Service();
+            _context = context;
         }
 
         public IActionResult Index()
@@ -278,5 +282,54 @@ namespace CLWebApp.Controllers
                 winning = winningStr
             });
         }
+
+
+        /// <summary>
+        /// 記録処理
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Record(Practice2ViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //トランザクション開始
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        // ユーザー情報をとる
+                        var user = GetLoginUser(_context);
+
+                        // 追加する燃費レコードのモデルを作成
+                        WinningRecord model = new WinningRecord();
+                        model.Victory = int.Parse(viewModel.Victory);
+                        model.Defeat = int.Parse(viewModel.Defeat);
+                        model.Draw = int.Parse(viewModel.Draw);
+                        model.WinningPercentage = double.Parse(viewModel.Winning);
+
+                        // 引数に指定したエンティティをデータベースに追加
+                        _context.Add(model);
+
+                        // データベースに変更が反映
+                        _context.SaveChanges();
+
+                        // データベースの更新内容が有効
+                        transaction.Commit();
+
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        ModelState.AddModelError(string.Empty, "エラーが発生しました。");
+                    }
+                }
+            }
+
+            return View("Winning", viewModel);
+        }
+
     }
 }

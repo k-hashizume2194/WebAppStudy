@@ -21,6 +21,8 @@ namespace CLWebApp.Data
 
         public DbSet<BmiRecord> BmiRecords { get; set; }
 
+        public DbSet<WinningRecord> WinningRecords { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

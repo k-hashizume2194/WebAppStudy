@@ -56,6 +56,11 @@
             <button type="button" id="winAjaxBtn" class="btn btn-basic btn-xs col-md-offset-2 col-md-3">勝率判定(Ajax)</button>
         </div>
     </div>
+    <form asp-action="Record" method="post">
+        <div class="form-group">
+            <button type="submit" class="submit_button btn btn-danger" id="recBtn">記録</button>
+        </div>
+    </form>
 
     <div class="form-group form-inline col-md-12">
         <form asp-controller="Average" asp-action="Index">
