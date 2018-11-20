@@ -23,15 +23,16 @@ $(function () {
             // 処理終了
             return;
         }
-
-        // TODO:数字以外を入力したときに計算ボタンを有効にしない処理
-
-        //// 指定フォームのvalidate実行
-        //var formResult = $(this).parents('form').valid();
-        //if (!formResult) {
-        //    // エラーがあるので処理終了
-        //    return;
-        //}
+        else
+        {
+             //数字以外を入力したときに計算ボタンを有効にしない処理
+             //指定フォームのvalidate実行
+            var formResult = $(this).parents('form').valid();
+            if (!formResult) {
+                 エラーがあるので処理終了
+                return;
+            }
+        }
 
         // 計算ボタンをクリック可能にする
         $('#calcBtn, #ajaxCalcBtn').prop('disabled', false);
@@ -71,10 +72,16 @@ $(function () {
     // 計算(Ajax)ボタンを押したとき
     $('#ajaxCalcBtn').click(function () {
         {
+            // Ajax前に指定フォームのvalidate実行
+            var formResult = $(this).parents('form').valid();
+            if (!formResult) {
+                // エラーがあるので処理終了
+                return;
+            }
+
             // 対象ボタンの親のForm取得
             var form = $(this).parents('form');
 
-            //TODO:Ajax前にform.valid();必要？
             // ajax処理
 
             // 処理前に Loading 画像を表示
@@ -94,7 +101,7 @@ $(function () {
                     if (data.status === "success") {
                         // BMIの値をセット
                         $("#bmi").val(data.result);
-                        // hidden(btnCalculationEnabled)の値を書き換え
+                        // hidden(btnCalculationEnabled)の値を書き換え　※(hiddenの値:false生きている)
                         $('#btnCalculationEnabled').val(data.hiddenCalc);
                         //計算ボタンの押印を制御する関数
                         btnCalcChange();

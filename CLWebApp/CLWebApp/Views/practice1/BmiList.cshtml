@@ -7,9 +7,9 @@
 <h2>BMI計測一覧</h2>
 
 @*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
-<table class="table table-striped table-hover table-striped table-condensed table-bordered">
+        <a asp-action="Create">Create New</a>
+    </p>*@
+<table class="table table-striped table-hover table-striped table-condensed table-bordered" id="bmi-table">
     <thead class="info">
         <tr>
             <th>
@@ -45,34 +45,51 @@
                 </td>
                 <td>
                     @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<table border="1" align="center" @*class="table"*@>
+<table border="1" align="center" @*class="table" *@>
     <tr>
-        <th>BMI（数値の範囲）</th><th>肥満度の判定</th>
+        <th>BMI（数値の範囲）</th>
+        <th>肥満度の判定</th>
     </tr>
     <tr>
-        <td>18.5未満</td><td>普通体重</td>
+        <td>18.5未満</td>
+        <td>普通体重</td>
     </tr>
     <tr>
-        <td>25以上30未満</td><td>肥満（1度）</td>
+        <td>25以上30未満</td>
+        <td>肥満（1度）</td>
     </tr>
     <tr>
-        <td>25以上30未満</td><td>肥満（1度）</td>
+        <td>25以上30未満</td>
+        <td>肥満（1度）</td>
     </tr>
     <tr>
-        <td>30以上35未満</td><td>肥満（2度）</td>
+        <td>30以上35未満</td>
+        <td>肥満（2度）</td>
     </tr>
     <tr>
-        <td>35以上40未満</td><td>肥満（3度）</td>
+        <td>35以上40未満</td>
+        <td>肥満（3度）</td>
     </tr>
     <tr class="danger">
-        <td>40以上</td><td>肥満（4度）</td>
+        <td>40以上</td>
+        <td>肥満（4度）</td>
     </tr>
 </table>
+
+<script>
+    // DataTables使用
+    $(document).ready(function () {
+        $('#bmi-table').DataTable();
+    });
+</script>
+
+
+
