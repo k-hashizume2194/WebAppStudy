@@ -40,7 +40,7 @@ namespace CLWebApp.Controllers
 
 
         /// <summary>
-        /// Indexページ
+        /// Indexページ(橋詰練習)
         /// </summary>
         /// <returns></returns>
         public IActionResult Index()
@@ -57,9 +57,9 @@ namespace CLWebApp.Controllers
         [HttpPost]
         public IActionResult Calc(Practice1ViewModel model)
         {
-            // POST後の画面再描画のため状態をクリア
             if (ModelState.IsValid)
             {
+                // POST後の画面再描画のため状態をクリア
                 ModelState.Clear();
 
                 double heightDouble = double.Parse(model.height);
@@ -68,10 +68,35 @@ namespace CLWebApp.Controllers
 
                 model.bmi = bmi.ToString();
 
-                model.btnCalculationEnabled = true;
+                //model.btnCalculationEnabled = true;
                 model.isCalculated = true;
             }
             return View("Bmi", model);
+        }
+
+        /// <summary>
+        /// 計算処理(Ajax)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult CalcAjax(Practice1ViewModel model)
+        {
+                double heightDouble = double.Parse(model.height);
+                double weightDouble = double.Parse(model.weight);
+                double bmi = _service.CalcBmi(heightDouble, weightDouble);
+
+            // BMIの値をstring型へ変換
+            var bmiStr = bmi.ToString();
+
+            return Json(new
+            {
+                //計算結果とhiddenの値を返す
+                status = "success",
+                result = bmiStr,
+                hiddenCalc = false,
+                hiddenRec = true
+            });
         }
 
 

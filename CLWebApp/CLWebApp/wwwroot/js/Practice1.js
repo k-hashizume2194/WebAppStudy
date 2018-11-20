@@ -18,7 +18,7 @@ $(function () {
         //「計算」ボタンをクリック不可状態にする
         if (!heightVal || !weightVal) {
             // 計算ボタンをクリック不可にする
-            $('#calcBtn').prop('disabled', true);
+            $('#calcBtn, #ajaxCalcBtn').prop('disabled', true);
             //$('#weight').focus();
             // 処理終了
             return;
@@ -34,7 +34,7 @@ $(function () {
         //}
 
         // 計算ボタンをクリック可能にする
-        $('#calcBtn').prop('disabled', false);
+        $('#calcBtn, #ajaxCalcBtn').prop('disabled', false);
         $('#calcBtn').focus();
         
     });
@@ -67,6 +67,59 @@ $(function () {
     //    form.submit();
     //});         
 
+
+    // 計算(Ajax)ボタンを押したとき
+    $('#ajaxCalcBtn').click(function () {
+        {
+            // 対象ボタンの親のForm取得
+            var form = $(this).parents('form');
+
+            //TODO:Ajax前にform.valid();必要？
+            // ajax処理
+
+            // 処理前に Loading 画像を表示
+            dispLoading("処理中...");
+
+            // formの内容をシリアライズ(※要name属性)
+            var dataToPost = form.serialize();
+
+            $.ajax({
+                url: '/Practice1/CalcAjax',
+                type: 'POST',
+                data: dataToPost
+            })
+                // Ajaxリクエストが成功した時発動
+
+                .done(function (data) {
+                    if (data.status === "success") {
+                        // BMIの値をセット
+                        $("#bmi").val(data.result);
+                        // hidden(btnCalculationEnabled)の値を書き換え
+                        $('#btnCalculationEnabled').val(data.hiddenCalc);
+                        //計算ボタンの押印を制御する関数
+                        btnCalcChange();
+                        // hidden(isCalculated)の値を書き換え
+                        $('#isCalculated').val(data.hiddenRec);
+                        //計算後、入力を制御する関数
+                        CalculatedChange();
+                        // 日時変更不可にするためカレンダーを非表示
+                        $('#measuringdate').datetimepicker('destroy');
+                    }
+                })
+                    // Ajaxリクエストが失敗した時発動
+                    .fail(function (data) {
+                        alert('Ajaxリクエストエラーが発生しました');
+                    })
+                    // Ajaxリクエストが成功・失敗どちらでも発動
+                    .always(function (data) {
+                        // Lading 画像を消す
+                        removeLoading();
+                    });
+        
+        }
+    });
+
+
     // ひと画面でボタンを切り替える(Ajax使用)
     $('.submit_button').on('click', function () {
         // 対象ボタンの親のForm取得
@@ -74,8 +127,9 @@ $(function () {
         // data属性(-action)から値を取得してクリックしたもののactionに書き換え
         form.attr('action', $(this).data('action'));
         // data属性(-btn)から値を取得してifで切り替え
-        // 記録をクリックしたときはconfirm、計算をクリックしたときはそのまま
+        // 記録または記録(Ajax)をクリックしたときはconfirm、計算をクリックしたときはそのまま
         var btn = $(this).data('btn');
+        // 記録または記録(Ajax)ボタンなら
         if (btn === "recBtn" || btn === "ajaxRecBtn")
         {
             // ①isCalculatedの値をとる
@@ -142,17 +196,17 @@ $(function () {
     $('.jqdatetimepicker').datetimepicker();
 });
 
-//計算ボタンの押印を制御する関数
+//計算ボタンの押印を制御する関数(false:押下不可)
 function btnCalcChange() {
     // ①btnCalculationEnabledの値をとる
     var hiddenVal = $('#btnCalculationEnabled').val();
     // 文字列のboolean判定
     var btnCalculationEnabledval = hiddenVal.toLowerCase() === "true";
     // ②ボタンのdisabledを①の値をもとに切り替え]
-    $('#calcBtn').prop('disabled', !btnCalculationEnabledval);
+    $('#calcBtn, #ajaxCalcBtn').prop('disabled', !btnCalculationEnabledval);
 }
 
-//計算後、入力を制御する関数
+//計算後、入力を制御する関数(true:ResBtn押下可)
 function CalculatedChange() {
     // ①isCalculatedの値をとる
     var hiddenVal = $('#isCalculated').val();
