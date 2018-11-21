@@ -8,6 +8,8 @@ using CLWebApp.Models.ViewModels;
 using CLWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace CLWebApp.Controllers
 {
@@ -19,6 +21,7 @@ namespace CLWebApp.Controllers
     {
         private readonly ApplicationDbContext _context;
         private Practice2Service _service;
+        private List<ParkingInfo> _parkingInfoList = new List<ParkingInfo>();
 
 
         /// <summary>
@@ -42,6 +45,20 @@ namespace CLWebApp.Controllers
             _service.Clear(model);
 
             return View(model);
+        }
+
+
+        /// <summary>
+        /// 駐車場情報初期表示
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> ParkingRecordCreate()
+        {
+            // パーキング情報DBからデータを取り出す
+            _parkingInfoList = await _context.ParkingInfos.ToListAsync();
+            // 駐車場情報リスト設定
+            SetParkingInfoSelectListToViewBag();
+            return View();
         }
 
 
@@ -329,6 +346,16 @@ namespace CLWebApp.Controllers
             }
 
             return View("Winning", viewModel);
+        }
+
+        /// <summary>
+        /// 駐車場情報情報をViewBagに設定
+        /// </summary>
+        /// <param name="context"></param>
+        private void SetParkingInfoSelectListToViewBag()
+        {
+            var parkingInfo = _parkingInfoList.OrderBy(c => c.ParkingName).Select(x => new { Id = x.Id, Value = x.ParkingName });
+            ViewBag.ParkInfo = new SelectList(parkingInfo, "Id", "Value");
         }
 
     }
