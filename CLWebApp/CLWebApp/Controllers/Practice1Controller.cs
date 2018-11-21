@@ -7,6 +7,7 @@ using CLWebApp.Models;
 using CLWebApp.Models.ViewModels;
 using CLWebApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace CLWebApp.Controllers
@@ -15,6 +16,7 @@ namespace CLWebApp.Controllers
     {
         private readonly ApplicationDbContext _context;
         private Practice1Service _service;
+        private List<ParkingInfo> _parkingList;
 
         /// <summary>
         /// コンストラクター
@@ -45,6 +47,7 @@ namespace CLWebApp.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            //SetParkingSelectListToViewBag();
             return View();
         }
 
@@ -100,6 +103,11 @@ namespace CLWebApp.Controllers
         }
 
 
+        /// <summary>
+        /// 記録処理
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Record(Practice1ViewModel viewModel)
         {
@@ -220,7 +228,25 @@ namespace CLWebApp.Controllers
         /// <returns></returns>
         public async Task<IActionResult> BmiList()
         {
+            //var aaa = _context.BmiRecords.ToListAsync();
             return View(await _context.BmiRecords.ToListAsync());
+        }
+
+        /// <summary>
+        /// Parkingリストページ
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> ParkingData()
+        {
+            // 初期化
+            _parkingList = new List<ParkingInfo>();
+            //_parkingListにマスターデータを読み込む
+            _parkingList = await _context.ParkingInfos.ToListAsync();
+            //_parkingListを加工して(パーキング名順、Idとパーキング名をセレクト)、
+            var _parking = _parkingList.OrderBy(c => c.ParkingName).Select(x => new { Id = x.Id, Value = x.ParkingName });
+            // ViewBagに画面リスト用データをセット
+            ViewBag.Parking = new SelectList(_parking, "Id", "Value");
+            return View();
         }
 
     }

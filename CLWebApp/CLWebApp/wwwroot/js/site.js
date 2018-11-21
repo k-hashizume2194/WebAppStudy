@@ -25,7 +25,7 @@ $(function () {
         todayHighlight: true
     });
 
-    //// jQueryのDateTimePicker
+    //// jQueryのDateTimePicker(使用部分に記述)
     //$.datetimepicker.setLocale('ja');
     //$('.jqdatetimepicker').datetimepicker();
 });
@@ -53,7 +53,7 @@ function dispLoading(msg) {
         $("body").append("<div id='loading' style='z-index: 9999;'>" + dispMsg + "</div>");
     }
 }
-// DataTables日本語設定
+// DataTablesのデフォルト処理(日本語設定)
 $.extend($.fn.dataTable.defaults, {
     language: {
         "sEmptyTable": "テーブルにデータがありません",
