@@ -359,7 +359,6 @@ namespace CLWebApp.Controllers
         }
 
 
-
         /// <summary>
         /// 駐車場情報を表示(Ajax)
         /// </summary>
@@ -388,11 +387,14 @@ namespace CLWebApp.Controllers
                 status = "success",
                 parkingInfomation = parkingInfo
             });
-            
         }
 
-
-        public IActionResult ParkingCalc(long? userid)
+        /// <summary>
+        /// "TimeRate"の最小値を取得
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public IActionResult ParkingCalc()
         {
             // パーキング情報リストから、"TimeRate"の最小値を取得
             var minRate = _parkingInfoList.Min(record => record.TimeRate);
@@ -405,21 +407,49 @@ namespace CLWebApp.Controllers
                 status = "success",
                 parkingInfomation = parkingInfo
             });
-
         }
 
-        public IActionResult ParkingCalcMax(long? userid)
+        /// <summary>
+        /// "MaxFee"の最大値を取得
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public IActionResult ParkingCalcMax()
         {
-            // パーキング情報リストから、"TimeRate"の最大値を取得
-            var maxRate = _parkingInfoList.Max(record => record.MaxFee);
-            // パーキング情報リストの"MaxFee"の値と、パーキング情報の"MaxFee"の最大値が一致するレコードを取得
-            var parkingInfo = _parkingInfoList.Find(x => x.MaxFee == maxRate);
+            // パーキング情報リストから、"MaxFee"の最大値を取得
+            var maxFee = _parkingInfoList.OrderByDescending(record => record.MaxFee).First();
+            // 取得データをテキストボックスにセット
+            return Json(new
+            {
+                status = "success",
+                parkingInfomation = maxFee
+            });
+        }
+
+
+        /// <summary>
+        /// パーキング情報の各平均値を取得
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public IActionResult ParkingCalcAverage()
+        {
+            // パーキング情報リストから、"TimeRate"の平均値を取得
+            var aveTimeRate = _parkingInfoList.Average(record => record.TimeRate);
+            // パーキング情報リストから、"Fee"の平均値を取得
+            var aveFee = _parkingInfoList.Average(record => record.Fee);
+            // パーキング情報リストから、"MaxFee"の平均値を取得
+            var aveMaxFee = _parkingInfoList.Average(record => record.MaxFee);
 
             // 取得データをテキストボックスにセット
             return Json(new
             {
                 status = "success",
-                parkingInfomation = parkingInfo
+                prkingName = "平均データ",
+                aveTimeRate = aveTimeRate,
+                aveFee = aveFee,
+                aveMaxFee = aveMaxFee,
+                LocationName = ""
             });
 
         }
