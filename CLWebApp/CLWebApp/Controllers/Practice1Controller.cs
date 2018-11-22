@@ -23,8 +23,11 @@ namespace CLWebApp.Controllers
         /// </summary>
         public Practice1Controller(ApplicationDbContext context)
         {
+            // 初期化
             _service = new Practice1Service();
             _context = context;
+            // _parkingListにマスターデータを読み込む
+            _parkingList = _context.ParkingInfos.ToList();
         }
 
 
@@ -228,7 +231,6 @@ namespace CLWebApp.Controllers
         /// <returns></returns>
         public async Task<IActionResult> BmiList()
         {
-            //var aaa = _context.BmiRecords.ToListAsync();
             return View(await _context.BmiRecords.ToListAsync());
         }
 
@@ -239,14 +241,43 @@ namespace CLWebApp.Controllers
         public async Task<IActionResult> ParkingData()
         {
             // 初期化
-            _parkingList = new List<ParkingInfo>();
-            //_parkingListにマスターデータを読み込む
-            _parkingList = await _context.ParkingInfos.ToListAsync();
+            //_parkingList = new List<ParkingInfo>();
+            ////_parkingListにマスターデータを読み込む　※コンストラクタに記述する
+            //_parkingList = await _context.ParkingInfos.ToListAsync();
             //_parkingListを加工して(パーキング名順、Idとパーキング名をセレクト)、
             var _parking = _parkingList.OrderBy(c => c.ParkingName).Select(x => new { Id = x.Id, Value = x.ParkingName });
             // ViewBagに画面リスト用データをセット
             ViewBag.Parking = new SelectList(_parking, "Id", "Value");
             return View();
+        }
+
+        /// <summary>
+        /// 読み込み(Parkingリスト)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        //[HttpPost]
+        public async Task<IActionResult> SelectData(long? id)
+        {
+            // _parkingListからパラメータのIdを使ってデータを一件取得する
+            // idがnullの時
+            if (id == null)
+            {
+                return NotFound();
+            }
+            // _parkingListから_parkingListのIdとドロップダウンで選択したidが同じのものを取得
+            var parkingInfo = _parkingList.Find(_ => _.Id == id);
+            // parkingInfoがnullの時
+            if (parkingInfo == null)
+            {
+                return NotFound();
+            }
+            //JSONで、リストから取得したものを返す
+            return Json(new
+            {
+                status = "success",
+                pInfo = parkingInfo
+            });
         }
 
     }

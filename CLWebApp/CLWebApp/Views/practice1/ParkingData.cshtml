@@ -1,14 +1,14 @@
 ﻿@model CLWebApp.Models.ParkingInfo
 @{
-    ViewData["Title"] = "ParkingData";
+    ViewData["Title"] = "Parkingデータ";
 }
 
-<h2>ParkingData</h2>
+<h2>Parkingデータ</h2>
 
 <form asp-action="ParkingData" method="get">
     <div class="form-group">
         <label asp-for="ParkingName" class="control-label"></label>
-        <select asp-items="ViewBag.Parking" asp-for="ParkingName" class="form-control input-sm" style="width: 300px;">
+        <select asp-items="ViewBag.Parking" id="ParkingSelect" asp-for="ParkingName" class="form-control input-sm" style="width: 300px;">
             <option value="">指定なし</option>
         </select>
         <span asp-validation-for="ParkingName" class="text-danger"></span>
@@ -20,5 +20,25 @@
 </form>
 
 <div class="col-md-offset-5">
-    <button type="submit" class="btn btn-primary">実行</button>
+    <button type="submit" class="btn btn-primary" id="execBtn">読み込み</button>
 </div>
+
+<div style="display:inline-flex">
+    <p>
+        パーキング名<br>
+        <input type="text" id="parkingName">
+    <p>
+        <br>
+        <input type="text" id="timeRate">
+    <p>
+        １時間<br>
+        <input type="text" id="fee">
+    <p>
+        最大料金<br>
+        <input type="text" id="maxFee">
+    <p>
+        場所<br>
+        <input type="text" id="location">
+</div>
+
+    <script src="~/js/ParkingData.js"></script>
