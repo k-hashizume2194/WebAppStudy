@@ -391,5 +391,38 @@ namespace CLWebApp.Controllers
             
         }
 
+
+        public IActionResult ParkingCalc(long? userid)
+        {
+            // パーキング情報リストから、"TimeRate"の最小値を取得
+            var minRate = _parkingInfoList.Min(record => record.TimeRate);
+            // パーキング情報リストの"TimeRate"の値と、パーキング情報の"TimeRate"の最小値が一致するレコードを取得
+            var parkingInfo = _parkingInfoList.Find(x => x.TimeRate == minRate);
+
+            // 取得データをテキストボックスにセット
+            return Json(new
+            {
+                status = "success",
+                parkingInfomation = parkingInfo
+            });
+
+        }
+
+        public IActionResult ParkingCalcMax(long? userid)
+        {
+            // パーキング情報リストから、"TimeRate"の最大値を取得
+            var maxRate = _parkingInfoList.Max(record => record.MaxFee);
+            // パーキング情報リストの"MaxFee"の値と、パーキング情報の"MaxFee"の最大値が一致するレコードを取得
+            var parkingInfo = _parkingInfoList.Find(x => x.MaxFee == maxRate);
+
+            // 取得データをテキストボックスにセット
+            return Json(new
+            {
+                status = "success",
+                parkingInfomation = parkingInfo
+            });
+
+        }
+
     }
 }
