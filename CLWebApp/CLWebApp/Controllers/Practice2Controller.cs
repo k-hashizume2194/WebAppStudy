@@ -31,6 +31,8 @@ namespace CLWebApp.Controllers
         {
             _service = new Practice2Service();
             _context = context;
+            // パーキング情報DBからデータを取り出す
+            _parkingInfoList = _context.ParkingInfos.ToList();
         }
 
         public IActionResult Index()
@@ -52,10 +54,8 @@ namespace CLWebApp.Controllers
         /// 駐車場情報初期表示
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> ParkingRecordCreate()
+        public IActionResult ParkingRecordCreate()
         {
-            // パーキング情報DBからデータを取り出す
-            _parkingInfoList = await _context.ParkingInfos.ToListAsync();
             // 駐車場情報リスト設定
             SetParkingInfoSelectListToViewBag();
             return View();
@@ -356,6 +356,39 @@ namespace CLWebApp.Controllers
         {
             var parkingInfo = _parkingInfoList.OrderBy(c => c.ParkingName).Select(x => new { Id = x.Id, Value = x.ParkingName });
             ViewBag.ParkInfo = new SelectList(parkingInfo, "Id", "Value");
+        }
+
+
+
+        /// <summary>
+        /// 駐車場情報を表示(Ajax)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public IActionResult ParkingInfoDisplayAjax(long? userid)
+        {
+            // ユーザー情報がない場合
+            if (userid == null)
+            {
+                return NotFound();
+            }
+
+            // パーキング情報リストから、選択された"userid"と同じパーキング情報リストの"Id"のデータを取得
+            var parkingInfo = _parkingInfoList.Find(x => x.Id == userid);
+
+            // パーキング情報がない場合
+            if (parkingInfo == null)
+            {
+                return NotFound();
+            }
+
+            // 取得データをテキストボックスにセット
+            return Json(new
+            {
+                status = "success",
+                parkingInfomation = parkingInfo
+            });
+            
         }
 
     }
