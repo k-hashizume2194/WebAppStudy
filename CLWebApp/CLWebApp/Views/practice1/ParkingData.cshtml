@@ -19,26 +19,41 @@
     </div>
 </form>
 
-<div class="col-md-offset-5">
-    <button type="submit" class="btn btn-primary" id="execBtn">読み込み</button>
+<div class="form-group">
+    <div class="col-md-offset-5">
+        <button type="submit" class="btn btn-primary" id="execBtn">読み込み</button>
+    </div>
+    <div class="col-md-offset-5">
+        <button type="submit" class="study-linq btn btn-primary" data-btn="1">TimeRate最小</button>
+    </div>
+    <div class="col-md-offset-5">
+        <button type="submit" class="study-linq btn btn-primary" data-btn="2">MaxFee最大</button>
+    </div>
+    <div class="col-md-offset-5">
+        <button type="submit" class="study-linq btn btn-primary" data-btn="3">平均</button>
+    </div>
 </div>
 
-<div style="display:inline-flex">
-    <p>
-        パーキング名<br>
-        <input type="text" id="parkingName">
-    <p>
-        <br>
-        <input type="text" id="timeRate">
-    <p>
-        １時間<br>
-        <input type="text" id="fee">
-    <p>
-        最大料金<br>
-        <input type="text" id="maxFee">
-    <p>
-        場所<br>
-        <input type="text" id="location">
-</div>
+    <div style="display:inline-flex">
+        <p>
+            パーキング名<br>
+            <input type="text" id="parkingName">
+        <p>
+            分あたり<br>
+            <input type="text" id="timeRate">
+        <p>
+            円<br>
+            <input type="text" id="fee">
+        <p>
+            最大料金<br>
+            <input type="text" id="maxFee">
+        <p>
+            場所<br>
+            <input type="text" id="location">
+        <p>
+    </div>
+
+
+
 
     <script src="~/js/ParkingData.js"></script>
