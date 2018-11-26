@@ -24,17 +24,17 @@
 
     <div class="row">
         <div class="form-group col-md-offset-5">
-            <button type="submit" id="minimumRateBtn" class="btn btn-success btn-lg col-md-offset-2 col-md-3">最小</button>
+            <button type="submit" id="minimumRateBtn" class="btn CalcProcessing btn-success btn-lg col-md-offset-2 col-md-3" data-btn="minBtn">最小</button>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-offset-5">
-            <button type="submit" id="maxRateBtn" class="btn btn-success btn-lg col-md-offset-2 col-md-3">最大</button>
+            <button type="submit" id="maxRateBtn" class="btn CalcProcessing btn-success btn-lg col-md-offset-2 col-md-3" data-btn="maxBtn">最大</button>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-offset-5">
-            <button type="submit" id="averageRateBtn" class="btn btn-success btn-lg col-md-offset-2 col-md-3">平均</button>
+            <button type="submit" id="averageRateBtn" class="btn CalcProcessing btn-success btn-lg col-md-offset-2 col-md-3" data-btn="aveBtn">平均</button>
         </div>
     </div>
 
@@ -67,8 +67,8 @@
             </form>
         </div>
     </div>
-
-    @section Scripts {
-        @await Html.PartialAsync("_ValidationScriptsPartial")
-    }
-    <script src="~/js/ParkingRecordCreate.js"></script>
+</div>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+<script src="~/js/ParkingRecordCreate.js"></script>

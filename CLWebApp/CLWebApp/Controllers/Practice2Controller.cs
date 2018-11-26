@@ -389,18 +389,53 @@ namespace CLWebApp.Controllers
             });
         }
 
-        /// <summary>
-        /// "TimeRate"の最小値を取得
-        /// </summary>
-        /// <param name="userid"></param>
-        /// <returns></returns>
-        public IActionResult ParkingCalc()
-        {
-            // パーキング情報リストから、"TimeRate"の最小値を取得
-            var minRate = _parkingInfoList.Min(record => record.TimeRate);
-            // パーキング情報リストの"TimeRate"の値と、パーキング情報の"TimeRate"の最小値が一致するレコードを取得
-            var parkingInfo = _parkingInfoList.Find(x => x.TimeRate == minRate);
 
+        /// <summary>
+        /// 駐車場情報を各ボタンの条件指定で表示 (Ajax)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public IActionResult ParkingCalc(string btn)
+        {
+            var parkingInfo = new ParkingInfo();
+
+            // btnデータが "null"の場合
+            if (btn == null)
+            {
+                return NotFound();
+            }
+
+            // 最小値ボタンを押下した場合
+            if ("minBtn".Equals(btn))
+            {
+                // パーキング情報リストから、"TimeRate"の最小値を取得
+                var minRate = _parkingInfoList.Min(record => record.TimeRate);
+                // パーキング情報リストの"TimeRate"の値と、パーキング情報の"TimeRate"の最小値が一致するレコードを取得
+                parkingInfo = _parkingInfoList.Find(x => x.TimeRate == minRate);
+            }
+            // 最大値ボタンを押下した場合
+            if ("maxBtn".Equals(btn))
+            {
+                // パーキング情報リストから、"MaxFee"の最大値を取得
+                parkingInfo = _parkingInfoList.OrderByDescending(record => record.MaxFee).First();
+            }
+            // 平均ボタンを押下した場合
+            if ("aveBtn".Equals(btn))
+            {
+                // パーキング情報リストから、"TimeRate"の平均値を取得
+                var aveTimeRate = _parkingInfoList.Average(record => record.TimeRate);
+                // パーキング情報リストから、"Fee"の平均値を取得
+                var aveFee = _parkingInfoList.Average(record => record.Fee);
+                // パーキング情報リストから、"MaxFee"の平均値を取得
+                var aveMaxFee = _parkingInfoList.Average(record => record.MaxFee);
+
+                // parkingInfoの各項目にデータをセット
+                parkingInfo.ParkingName = "平均データ";
+                parkingInfo.TimeRate = (int)aveTimeRate;
+                parkingInfo.Fee = (int)aveFee;
+                parkingInfo.MaxFee = (int)aveMaxFee;
+                parkingInfo.Location = "";
+            }
             // 取得データをテキストボックスにセット
             return Json(new
             {
@@ -408,51 +443,5 @@ namespace CLWebApp.Controllers
                 parkingInfomation = parkingInfo
             });
         }
-
-        /// <summary>
-        /// "MaxFee"の最大値を取得
-        /// </summary>
-        /// <param name="userid"></param>
-        /// <returns></returns>
-        public IActionResult ParkingCalcMax()
-        {
-            // パーキング情報リストから、"MaxFee"の最大値を取得
-            var maxFee = _parkingInfoList.OrderByDescending(record => record.MaxFee).First();
-            // 取得データをテキストボックスにセット
-            return Json(new
-            {
-                status = "success",
-                parkingInfomation = maxFee
-            });
-        }
-
-
-        /// <summary>
-        /// パーキング情報の各平均値を取得
-        /// </summary>
-        /// <param name="userid"></param>
-        /// <returns></returns>
-        public IActionResult ParkingCalcAverage()
-        {
-            // パーキング情報リストから、"TimeRate"の平均値を取得
-            var aveTimeRate = _parkingInfoList.Average(record => record.TimeRate);
-            // パーキング情報リストから、"Fee"の平均値を取得
-            var aveFee = _parkingInfoList.Average(record => record.Fee);
-            // パーキング情報リストから、"MaxFee"の平均値を取得
-            var aveMaxFee = _parkingInfoList.Average(record => record.MaxFee);
-
-            // 取得データをテキストボックスにセット
-            return Json(new
-            {
-                status = "success",
-                prkingName = "平均データ",
-                aveTimeRate = aveTimeRate,
-                aveFee = aveFee,
-                aveMaxFee = aveMaxFee,
-                LocationName = ""
-            });
-
-        }
-
     }
 }
